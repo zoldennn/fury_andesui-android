@@ -1,0 +1,20 @@
+ext {
+
+
+    kt = [
+            stblib: "org.jetbrains.kotlin:kotlin-stdlib.jdk7:$kotlinVersion"
+    ]
+
+    mockitoKotlinVersion = '2.2.0'
+    assertjVersion = '3.11.1'
+    mockitoInline = '2.13.0'
+    robolectric = '3.8'
+
+    test = [
+            junit4        : "junit:junit:4.12",
+            mockitoKotlin: "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion",
+            assertj      : "org.assertj:assertj-core:$assertjVersion",
+            mockitoInline : "org.mockito:mockito-inline:$mockitoInline",
+            robolectric : "org.robolectric:robolectric:$robolectric"
+    ]
+}

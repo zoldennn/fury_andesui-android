@@ -1,0 +1,35 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mercadolibre.android.andesui.demoapp">
+
+    <application
+        android:name="com.mercadolibre.android.andesui.demoapp.MainApplication"
+        android:icon="@mipmap/andesui_demoapp_ic_launcher"
+        android:label="@string/andesui_demoapp_app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name="com.mercadolibre.android.andesui.demoapp.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.mercadolibre.android.andesui.demoapp.ButtonShowcaseActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="andes"
+                    android:path="/button"
+                    android:scheme="meli" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

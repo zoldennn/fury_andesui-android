@@ -1,0 +1,14 @@
+buildCache {
+    local(DirectoryBuildCache) {
+        removeUnusedEntriesAfterDays = 30
+    }
+    remote(HttpBuildCache) {
+        enabled = true
+        url = 'https://gradle-ext.adminml.com/cache/'
+        push = System.getenv().containsKey("CI")
+        credentials {
+            username = System.getenv('CI_GRADLE_USER')
+            password = System.getenv('CI_GRADLE_USER_PASSWORD')
+        }
+    }
+}

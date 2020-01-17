@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <declare-styleable name="AndesButton" tools:ignore="ResourceName">
+        <attr name="andesButtonHierarchy">
+            <enum name="loud" value="100" />
+            <enum name="quiet" value="101" />
+            <enum name="transparent" value="102" />
+        </attr>
+
+        <attr name="andesButtonSize">
+            <enum name="large" value="200" />
+            <enum name="medium" value="201" />
+            <enum name="small" value="202" />
+        </attr>
+
+        <attr name="andesButtonLeftIconCustom" format="reference" />
+
+        <attr name="andesButtonRightIconCustom" format="reference" />
+
+        <attr name="andesButtonText" format="reference" />
+
+        <attr name="andesButtonEnabled" format="boolean"/>
+    </declare-styleable>
+
+</resources>

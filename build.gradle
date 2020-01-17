@@ -1,0 +1,38 @@
+apply from: 'dependencies.gradle'
+
+buildscript {
+    // These repositories are used when building your project.
+    // They are NOT used to find your module's dependencies.
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradleBuildToolsVersion"
+        classpath "com.novoda:bintray-release:$bintrayReleasePluginVersion"
+        classpath "com.monits:static-code-analysis-plugin:$scaPluginVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    }
+}
+
+wrapper {
+    gradleVersion = gradleWrapperVersion
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    // It's our convention to keep all modules in the same GitHub repository with the same group and version.
+    group = libraryGroupId
+    version = libraryVersion
+}

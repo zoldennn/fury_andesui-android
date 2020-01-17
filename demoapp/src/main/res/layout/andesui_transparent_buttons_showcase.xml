@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/andesui_white">
+
+    <LinearLayout
+        android:id="@+id/andes_transparent_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="@string/andes_transparent_buttons_text"
+            android:textColor="#000"
+            android:textSize="24sp" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonSize="large"
+            app:andesButtonHierarchy="transparent"
+            app:andesButtonText="@string/transparent_large_button" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonSize="medium"
+            app:andesButtonHierarchy="transparent"
+            app:andesButtonText="@string/transparent_medium_button" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonSize="small"
+            app:andesButtonHierarchy="transparent"
+            app:andesButtonText="@string/transparent_small_button" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonEnabled="false"
+            app:andesButtonSize="large"
+            app:andesButtonHierarchy="transparent"
+            app:andesButtonText="@string/transparent_large_button_disabled" />
+    </LinearLayout>
+</ScrollView>

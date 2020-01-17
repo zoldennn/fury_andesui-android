@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="andesui_button_transparent_bg">@color/andesui_bu_transparent_idle</color>
+    <color name="andesui_button_transparent_bg_pressed">@color/andesui_bu_transparent_pressed</color>
+    <color name="andesui_button_transparent_bg_disabled">@color/andesui_bu_transparent_disabled</color>
+    <color name="andesui_button_transparent_bg_focused">@color/andesui_bu_transparent_focused</color>
+    <color name="andesui_button_transparent_bg_hovered">@color/andesui_bu_transparent_hovered</color>
+    <color name="andesui_button_transparent_text">@color/andesui_bu_transparent_text</color>
+    <color name="andesui_button_transparent_text_disabled">@color/andesui_bu_transparent_text_disabled</color>
+
+</resources>

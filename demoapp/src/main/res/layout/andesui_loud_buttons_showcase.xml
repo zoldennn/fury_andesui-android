@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/andesui_white">
+
+    <LinearLayout
+        android:id="@+id/andes_loud_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="@string/andes_loud_buttons_text"
+            android:textColor="#000"
+            android:textSize="24sp" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonSize="large"
+            app:andesButtonHierarchy="loud"
+            app:andesButtonText="@string/loud_large_button" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonSize="medium"
+            app:andesButtonHierarchy="loud"
+            app:andesButtonText="@string/loud_medium_button" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonSize="small"
+            app:andesButtonHierarchy="loud"
+            app:andesButtonText="@string/loud_small_button" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonEnabled="false"
+            app:andesButtonSize="large"
+            app:andesButtonHierarchy="loud"
+            app:andesButtonText="@string/loud_large_button_disabled" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonLeftIconCustom="@drawable/andesui_icon"
+            app:andesButtonSize="large"
+            app:andesButtonHierarchy="loud"
+            app:andesButtonText="@string/large_button_left_icon" />
+
+        <com.mercadolibre.android.andesui.button.AndesButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:andesButtonRightIconCustom="@drawable/andesui_icon"
+            app:andesButtonSize="large"
+            app:andesButtonHierarchy="loud"
+            app:andesButtonText="@string/large_button_right_icon" />
+
+    </LinearLayout>
+</ScrollView>

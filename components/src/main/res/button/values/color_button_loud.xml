@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="andesui_button_loud_bg">@color/andesui_bu_loud_idle</color>
+    <color name="andesui_button_loud_bg_disabled">@color/andesui_bu_loud_disabled</color>
+    <color name="andesui_button_loud_bg_pressed">@color/andesui_bu_loud_pressed</color>
+    <color name="andesui_button_loud_bg_hovered">@color/andesui_bu_loud_hovered</color>
+    <color name="andesui_button_loud_bg_focused">@color/andesui_bu_loud_focused</color>
+    <color name="andesui_button_loud_bg_other">@color/andesui_bu_loud_other</color>
+    <color name="andesui_button_loud_text">@color/andesui_bu_loud_text</color>
+    <color name="andesui_button_loud_text_disabled">@color/andesui_bu_loud_text_disabled</color>
+
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="andesui_font_regular" type="font" format="reference"/>
+    <item name="andesui_font_semibold" type="font" format="reference"/>
+</resources>

@@ -1,0 +1,2 @@
+include ':demoapp', ':components'
+apply from: "$rootDir/gradle/build-cache-settings.gradle"

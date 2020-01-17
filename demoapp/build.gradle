@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.monits.staticCodeAnalysis'
+apply plugin: 'com.getkeepsafe.dexcount'
+apply from: rootProject.file('jacoco.gradle')
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$dexCountGradlePlugin"
+    }
+}
+
+android {
+    compileSdkVersion maxApiLevel.toInteger()
+    buildToolsVersion androidBuildToolsVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        applicationId "$libraryGroupId" + ".demoapp"
+        minSdkVersion minApiLevel
+        targetSdkVersion maxApiLevel
+        versionCode "$demoAppVersionCode".toInteger()
+        versionName "$demoAppVersionName"
+
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        debug {
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled false
+            aaptOptions {
+                cruncherEnabled false
+            }
+        }
+        release {
+            initWith(buildTypes.debug)
+            // We need this in true to test after executing ProGuard to check our ProGuard custom rules.
+            minifyEnabled true
+            shrinkResources true
+        }
+    }
+
+    lintOptions {
+        // TODO: Delete this once play services is updated. Now we need it because play services brings support library 26
+        disable 'GradleCompatible'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+    }
+
+    dexOptions.preDexLibraries = true
+}
+
+staticCodeAnalysis {
+    // False is REQUIRED in order to make CI server fail the build on errors.
+    ignoreErrors = false
+}
+
+dependencies {
+    implementation project(':components')
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Custom metrics should be referring to existing sizes-->
+
+    <dimen name="andesui_text_size_button_large">@dimen/andesui_text_size_subhead</dimen>
+    <dimen name="andesui_text_size_button_medium">@dimen/andesui_text_size_body</dimen>
+    <dimen name="andesui_text_size_button_small">@dimen/andesui_text_size_caption</dimen>
+
+</resources>

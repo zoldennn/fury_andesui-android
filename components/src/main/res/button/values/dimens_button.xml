@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="andesui_button_border_radius_large">6dp</dimen>
+    <dimen name="andesui_button_border_radius_medium">5dp</dimen>
+    <dimen name="andesui_button_border_radius_small">4dp</dimen>
+
+    <dimen name="andesui_button_height_large">48dp</dimen>
+    <dimen name="andesui_button_height_medium">32dp</dimen>
+    <dimen name="andesui_button_height_small">24dp</dimen>
+
+    <dimen name="andesui_button_margin_large">8dp</dimen>
+    <dimen name="andesui_button_margin_medium">12dp</dimen>
+    <dimen name="andesui_button_margin_small">8dp</dimen>
+
+    <dimen name="andesui_button_left_icon_right_margin">12dp</dimen>
+    <dimen name="andesui_button_right_icon_left_margin">12dp</dimen>
+
+    <dimen name="andesui_button_lateral_padding_large">16dp</dimen>
+    <dimen name="andesui_button_lateral_padding_medium">12dp</dimen>
+    <dimen name="andesui_button_lateral_padding_small">8dp</dimen>
+
+    <dimen name="andesui_button_icon_width">20dp</dimen>
+    <dimen name="andesui_button_icon_height">20dp</dimen>
+
+    <dimen name="andesui_button_focused_stroke">3dp</dimen>
+
+</resources>
