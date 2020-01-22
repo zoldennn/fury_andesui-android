@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.andesui_demoapp_main)
 
         setupButtons()
+        setupMessages()
     }
 
     private fun setupButtons() {
@@ -24,8 +25,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupMessages() {
+        andesui_messages.setOnClickListener {
+            launchAndesMessageShowcase()
+        }
+    }
+
     private fun launchAndesButtonShowcase() {
         launchIntent("meli://andes/button")
+    }
+
+    private fun launchAndesMessageShowcase() {
+        launchIntent("meli://andes/message")
     }
 
     private fun launchIntent(uri: String) {

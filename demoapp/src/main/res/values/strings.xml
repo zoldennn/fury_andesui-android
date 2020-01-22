@@ -33,4 +33,7 @@
 
     <string name="andes_button_showcase">Andes Button Showcase</string>
     <string name="transparent_large_button_programmatic_int">Transparent Large Button Icon Int</string>
+    <string name="andes_message_showcase">Andes Message Showcase</string>
+    <string name="description_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+    <string name="title_text">Atención!</string>
 </resources>
