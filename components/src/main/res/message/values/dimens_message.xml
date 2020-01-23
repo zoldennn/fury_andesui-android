@@ -3,4 +3,8 @@
     <dimen name="andesui_message_corner_radius">0dp</dimen>
     <dimen name="andesui_message_pipe_corner_radius">0dp</dimen>
     <dimen name="andesui_message_left_corner_radius">0dp</dimen>
+
+    <dimen name="andesui_message_dismissable_icon_width">20dp</dimen>
+    <dimen name="andesui_message_dismissable_icon_height">20dp</dimen>
+
 </resources>

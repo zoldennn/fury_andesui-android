@@ -112,6 +112,6 @@ internal object AndesMessageFactory {
     private fun resolveTitleTypeface(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.titleTypeface(context)
     private fun resolveDescriptionTypeface(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.descriptionTypeface(context)
     private fun resolveIcon(state: AndesMessageStateInterface, context: Context) = state.icon(context)
-    private fun resolveDismissableIcon(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.dismissableIcon(context)
+    private fun resolveDismissableIcon(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.dismissableIcon(hierarchy, context)
     private fun resolveDismissableIconColor(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.dismissableIconColor(context)
 }

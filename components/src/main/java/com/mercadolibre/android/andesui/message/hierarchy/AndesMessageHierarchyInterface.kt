@@ -3,6 +3,7 @@ package com.mercadolibre.android.andesui.message.hierarchy
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
@@ -10,6 +11,7 @@ import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.message.AndesMessage
 import com.mercadolibre.android.andesui.message.state.AndesMessageStateInterface
 import com.mercadolibre.android.andesui.typeface.getFontOrDefault
+import com.mercadolibre.android.andesui.utils.buildColoredBitmapDrawable
 
 /**
  * Defines all style related properties that an [AndesMessage] needs to be drawn properly.
@@ -49,7 +51,12 @@ internal sealed class AndesMessageHierarchyInterface {
     abstract fun dismissableIconColor(context: Context): Int
 
     //TODO Documentar
-    fun dismissableIcon(context: Context) = ContextCompat.getDrawable(context, R.drawable.andesui_icon)
+    fun dismissableIcon(hierarchy: AndesMessageHierarchyInterface, context: Context) =
+            buildColoredBitmapDrawable(
+                    ContextCompat.getDrawable(context, R.drawable.andesui_ui_close_20) as BitmapDrawable,
+                    context,
+                    hierarchy.dismissableIconColor(context)
+            )
 
     /**
      * Returns the [Typeface] that should be used for the title inside the [AndesMessage].
