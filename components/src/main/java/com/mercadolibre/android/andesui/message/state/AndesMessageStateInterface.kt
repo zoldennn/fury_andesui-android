@@ -31,32 +31,42 @@ internal object AndesHighlightMessageState : AndesMessageStateInterface() {
     override fun primaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_highlight_primary)
     override fun secondaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_highlight_primary_dark)
     override fun icon(context: Context, hierarchy: AndesMessageHierarchyInterface) = buildColoredCircularShapeWithIconDrawable(
-            ContextCompat.getDrawable(context, R.drawable.andesui_ui_feedback_info_16) as BitmapDrawable, context,
-            ContextCompat.getColor(context, R.color.andesui_white), hierarchy.iconBackgroundColor(context, this))
-
+            ContextCompat.getDrawable(context, R.drawable.andesui_ui_feedback_info_16) as BitmapDrawable,
+            context,
+            ContextCompat.getColor(context, R.color.andesui_white), hierarchy.iconBackgroundColor(context, this),
+            context.resources.getDimension(R.dimen.andesui_message_icon_diameter).toInt()
+    )
 }
 
 internal object AndesSuccessMessageState : AndesMessageStateInterface() {
     override fun primaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_success_primary)
     override fun secondaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_success_primary_dark)
     override fun icon(context: Context, hierarchy: AndesMessageHierarchyInterface) = buildColoredCircularShapeWithIconDrawable(
-            ContextCompat.getDrawable(context, R.drawable.andesui_ui_feedback_success_16) as BitmapDrawable, context,
-            ContextCompat.getColor(context, R.color.andesui_white), hierarchy.iconBackgroundColor(context, this))
+            ContextCompat.getDrawable(context, R.drawable.andesui_ui_feedback_success_16) as BitmapDrawable,
+            context,
+            ContextCompat.getColor(context, R.color.andesui_white), hierarchy.iconBackgroundColor(context, this),
+            context.resources.getDimension(R.dimen.andesui_message_icon_diameter).toInt()
+    )
 }
 
 internal object AndesWarningMessageState : AndesMessageStateInterface() {
     override fun primaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_warning_primary)
     override fun secondaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_warning_primary_dark)
     override fun icon(context: Context, hierarchy: AndesMessageHierarchyInterface) = buildColoredCircularShapeWithIconDrawable(
-            ContextCompat.getDrawable(context, R.drawable.andesui_ui_feedback_warning_16) as BitmapDrawable, context,
-            ContextCompat.getColor(context, R.color.andesui_white), hierarchy.iconBackgroundColor(context, this))
-
+            ContextCompat.getDrawable(context, R.drawable.andesui_ui_feedback_warning_16) as BitmapDrawable,
+            context,
+            ContextCompat.getColor(context, R.color.andesui_white), hierarchy.iconBackgroundColor(context, this),
+            context.resources.getDimension(R.dimen.andesui_message_icon_diameter).toInt()
+    )
 }
 
 internal object AndesErrorMessageState : AndesMessageStateInterface() {
     override fun primaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_error_primary)
     override fun secondaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_error_primary_dark)
     override fun icon(context: Context, hierarchy: AndesMessageHierarchyInterface) = buildColoredCircularShapeWithIconDrawable(
-            ContextCompat.getDrawable(context, R.drawable.andesui_ui_feedback_warning_16) as BitmapDrawable, context,
-            ContextCompat.getColor(context, R.color.andesui_white), hierarchy.iconBackgroundColor(context, this))
+            ContextCompat.getDrawable(context, R.drawable.andesui_ui_feedback_warning_16) as BitmapDrawable,
+            context,
+            ContextCompat.getColor(context, R.color.andesui_white), hierarchy.iconBackgroundColor(context, this),
+            context.resources.getDimension(R.dimen.andesui_message_icon_diameter).toInt()
+    )
 }

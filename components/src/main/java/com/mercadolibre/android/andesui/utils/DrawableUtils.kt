@@ -43,20 +43,19 @@ internal fun buildColoredBitmapDrawable(image: BitmapDrawable, context: Context,
             }
 }
 
-internal fun buildColoredCircularShapeWithIconDrawable(image: BitmapDrawable, context: Context, iconColor: Int? = null, shapeColor: Int? = null): Drawable {
+internal fun buildColoredCircularShapeWithIconDrawable(image: BitmapDrawable, context: Context, iconColor: Int? = null, shapeColor: Int? = null, diameter : Int): Drawable {
     val icon = BitmapDrawable(context.resources, image.bitmap)
             .apply {
                 iconColor?.let { setColorFilter(it, PorterDuff.Mode.SRC_IN) }
             }
     val biggerCircle = ShapeDrawable(OvalShape())
-    val size = 16;
-    biggerCircle.setIntrinsicHeight(size);
-    biggerCircle.setIntrinsicWidth(size);
-    biggerCircle.getPaint().setColor(shapeColor!!);
-    biggerCircle.setBounds(Rect(0, 0, size, size));
-    val layerDrawable = LayerDrawable(arrayOf<Drawable>(biggerCircle, icon ))
-
-    return layerDrawable
+    val size = diameter
+    biggerCircle.intrinsicHeight = size
+    biggerCircle.intrinsicWidth = size
+    biggerCircle.paint.color = shapeColor!!
+    biggerCircle.bounds = Rect(0, 0, size, size)
+    return LayerDrawable(arrayOf(biggerCircle, icon ))
+    //FIXME Refactor this method
 
 
 }

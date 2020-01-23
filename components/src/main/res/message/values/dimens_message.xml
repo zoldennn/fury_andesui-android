@@ -7,4 +7,7 @@
     <dimen name="andesui_message_dismissable_icon_width">20dp</dimen>
     <dimen name="andesui_message_dismissable_icon_height">20dp</dimen>
 
+    <dimen name="andesui_message_icon_diameter">16dp</dimen>
+
+
 </resources>
