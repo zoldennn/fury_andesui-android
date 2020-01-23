@@ -1,5 +1,7 @@
 package com.mercadolibre.android.andesui.message.hierarchy
 
+import com.mercadolibre.android.andesui.message.AndesMessage
+
 /**
  * Utility class that does two things: Defines the possible styles an [AndesMessage] can take because it's an enum, as you can see.
  * But as a bonus it gives you the proper implementation so you don't have to make any mapping.

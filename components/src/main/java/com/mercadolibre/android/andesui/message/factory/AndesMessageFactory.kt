@@ -23,8 +23,8 @@ internal data class AndesMessageConfiguration(
         val titleTypeface: Typeface?,
         val descriptionTypeface: Typeface?,
         val icon: Drawable?, //FIXME remove the ? once icon is properly configured
-        val dismissable: Boolean,
-        val dismisssableIcon: Drawable?,
+        val isDismissable: Boolean,
+        val dismissableIcon: Drawable?,
         val dismisssableIconColor: Int?,
         val primaryActionText: String?,
         val secondaryActionText: String?
@@ -69,8 +69,8 @@ internal object AndesMessageFactory {
                 titleTypeface = resolveTitleTypeface(hierarchy, context),
                 descriptionTypeface = resolveDescriptionTypeface(hierarchy, context),
                 icon = resolveIcon(state,context),
-                dismissable = typedArray.getBoolean(R.styleable.AndesMessage_andesMessageDismissable, false),
-                dismisssableIcon = null,
+                isDismissable = typedArray.getBoolean(R.styleable.AndesMessage_andesMessageDismissable, false),
+                dismissableIcon = resolveDismissableIcon(hierarchy, context),
                 dismisssableIconColor = resolveDismissableIconColor(hierarchy, context),
                 primaryActionText = null,
                 secondaryActionText = null
@@ -79,7 +79,7 @@ internal object AndesMessageFactory {
     }
 
     @Override
-    fun create(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, dismissable : Boolean) : AndesMessageConfiguration{
+    fun create(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, isDismissable : Boolean) : AndesMessageConfiguration{
         val hierarchy = andesMessageHierarchy.hierarchy
         val state = andesMessageState.state
 
@@ -94,8 +94,8 @@ internal object AndesMessageFactory {
                 titleTypeface = resolveTitleTypeface(hierarchy, context),
                 descriptionTypeface = resolveDescriptionTypeface(hierarchy, context),
                 icon = resolveIcon(state, context),
-                dismissable = dismissable,
-                dismisssableIcon = resolveDismissableIcon(hierarchy, context),
+                isDismissable = isDismissable,
+                dismissableIcon = resolveDismissableIcon(hierarchy, context),
                 dismisssableIconColor = resolveDismissableIconColor(hierarchy, context),
                 primaryActionText = null,
                 secondaryActionText = null

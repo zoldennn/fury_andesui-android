@@ -6,7 +6,6 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
-import android.view.View
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.message.AndesMessage
 import com.mercadolibre.android.andesui.message.state.AndesMessageStateInterface
@@ -76,8 +75,9 @@ internal object AndesLoudMessageHierarchy : AndesMessageHierarchyInterface() {
     override fun textColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_loud_text)
     override fun dismissableIconColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_loud_dismissable)
 }
+
 internal object AndesQuietMessageHierarchy : AndesMessageHierarchyInterface() {
-    override fun backgroundColor(context: Context) = ContextCompat.getColor(context,R.color.andesui_message_quiet_bg) //TODO Check
+    override fun backgroundColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_bg) //TODO Check
     override fun backgroundColor(context: Context, state: AndesMessageStateInterface) = backgroundColor(context)
     override fun textColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_text) //TODO Check
     override fun dismissableIconColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_dismissable)

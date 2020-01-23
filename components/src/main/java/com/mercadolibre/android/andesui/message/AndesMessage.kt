@@ -2,7 +2,6 @@ package com.mercadolibre.android.andesui.message
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -18,6 +17,12 @@ import com.mercadolibre.android.andesui.message.state.AndesMessageState
 
 class AndesMessage : FrameLayout {
 
+    companion object {
+        private val HIERARCHY_DEFAULT = AndesMessageHierarchy.LOUD
+        private val STATE_DEFAULT = AndesMessageState.HIGHLIGHT
+        private const val IS_DISMISSABLE_DEFAULT = false
+    }
+
     private lateinit var messageContainer: ConstraintLayout
     private lateinit var titleComponent: TextView
     private lateinit var descriptionComponent: TextView
@@ -27,7 +32,7 @@ class AndesMessage : FrameLayout {
     private lateinit var config: AndesMessageConfiguration
 
     constructor(context: Context) : super(context) {
-        initAttrs(AndesMessageHierarchy.LOUD, AndesMessageState.HIGHLIGHT, false) //FIXME Programmatic way
+        initAttrs(HIERARCHY_DEFAULT, STATE_DEFAULT, IS_DISMISSABLE_DEFAULT) //FIXME Programmatic way
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context) {
@@ -38,12 +43,8 @@ class AndesMessage : FrameLayout {
         initAttrs(attrs)
     }
 
-    constructor(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, andesMessageIsDismissable: Boolean) : super(context) {
-        initAttrs(andesMessageHierarchy, andesMessageState, andesMessageIsDismissable)
-    }
-
-    constructor(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState) : super(context) {
-        initAttrs(andesMessageHierarchy, andesMessageState, false)
+    constructor(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, isDismissable: Boolean = IS_DISMISSABLE_DEFAULT) : super(context) {
+        initAttrs(andesMessageHierarchy, andesMessageState, isDismissable)
     }
 
     /**
@@ -72,10 +73,8 @@ class AndesMessage : FrameLayout {
         setupViewId()
 
         setupTitleComponent()
-//        addView(titleComponent)
 
         setupDescriptionComponent()
-//        addView(descriptionComponent)
 
         setupBackground()
 
@@ -88,16 +87,11 @@ class AndesMessage : FrameLayout {
 
 
     /**
-     * Creates all the views that are part of this button.
+     * Creates all the views that are part of this message.
      * After a view is created then a view id is added to it.
      *
      */
     private fun initComponents() {
-//        titleComponent = TextView(context)
-//        descriptionComponent = TextView(context)
-//        iconComponent = ImageView(context)
-//        dismissableComponent = ImageView(context)
-
         val container = LayoutInflater.from(context).inflate(R.layout.andesui_layout_message, this, true)
 
         messageContainer = container.findViewById(R.id.andesui_message_container)
@@ -151,11 +145,16 @@ class AndesMessage : FrameLayout {
 
     private fun setupIcon() {
         iconComponent.setImageDrawable(config.icon)
-        dismissableComponent.setImageDrawable(config.dismisssableIcon)
+        dismissableComponent.setImageDrawable(config.dismissableIcon)
     }
 
     private fun setupDismissable() {
-        if (!config.dismissable) {
+        if (config.isDismissable) {
+            dismissableComponent.visibility = View.VISIBLE
+            dismissableComponent.setOnClickListener {
+                visibility = View.GONE
+            }
+        } else {
             dismissableComponent.visibility = View.GONE
         }
     }
@@ -167,12 +166,4 @@ class AndesMessage : FrameLayout {
     fun setDescription(string: String) {
         descriptionComponent.text = string
     }
-
-    //TODO Checks if applies
-    fun setDismissable(dismissable: Boolean) {
-        if (!dismissable) {
-            dismissableComponent.visibility = View.GONE
-        }
-    }
-
 }
