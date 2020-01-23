@@ -36,4 +36,5 @@
     <string name="andes_message_showcase">Andes Message Showcase</string>
     <string name="body_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
     <string name="title_text">Atención!</string>
+    <string name="andes_message_demoapp">Andes Message</string>
 </resources>

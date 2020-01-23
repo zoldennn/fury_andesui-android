@@ -17,7 +17,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="TextView"
             app:layout_constraintEnd_toStartOf="@+id/andesui_dismissableleft_guideline"
             app:layout_constraintStart_toStartOf="@+id/andesui_righticon_guideline"
             app:layout_constraintTop_toTopOf="@+id/andesui_top_guideline" />
@@ -26,7 +25,6 @@
             android:id="@+id/andesui_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="TextView"
             app:layout_constraintBottom_toTopOf="@+id/andesui_guideline7"
             app:layout_constraintEnd_toStartOf="@+id/andesui_dismissableleft_guideline"
             app:layout_constraintStart_toStartOf="@+id/andesui_righticon_guideline"
