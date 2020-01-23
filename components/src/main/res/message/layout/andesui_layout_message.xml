@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="@+id/andesui_top_guideline" />
 
         <TextView
-            android:id="@+id/andesui_description"
+            android:id="@+id/andesui_body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="TextView"

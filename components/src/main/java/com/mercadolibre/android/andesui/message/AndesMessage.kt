@@ -20,19 +20,21 @@ class AndesMessage : FrameLayout {
     companion object {
         private val HIERARCHY_DEFAULT = AndesMessageHierarchy.LOUD
         private val STATE_DEFAULT = AndesMessageState.HIGHLIGHT
+        private val BODY_DEFAULT = "Andes Message Body"
+        private val TITLE_DEFAULT = null
         private const val IS_DISMISSABLE_DEFAULT = false
     }
 
     private lateinit var messageContainer: ConstraintLayout
     private lateinit var titleComponent: TextView
-    private lateinit var descriptionComponent: TextView
+    private lateinit var bodyComponent: TextView
     private lateinit var iconComponent: ImageView
     private lateinit var dismissableComponent: ImageView
     private lateinit var pipeComponent: View
     private lateinit var config: AndesMessageConfiguration
 
     constructor(context: Context) : super(context) {
-        initAttrs(HIERARCHY_DEFAULT, STATE_DEFAULT, IS_DISMISSABLE_DEFAULT) //FIXME Programmatic way
+        initAttrs(HIERARCHY_DEFAULT, STATE_DEFAULT, BODY_DEFAULT, TITLE_DEFAULT, IS_DISMISSABLE_DEFAULT)
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context) {
@@ -43,8 +45,8 @@ class AndesMessage : FrameLayout {
         initAttrs(attrs)
     }
 
-    constructor(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, isDismissable: Boolean = IS_DISMISSABLE_DEFAULT) : super(context) {
-        initAttrs(andesMessageHierarchy, andesMessageState, isDismissable)
+    constructor(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, body: String, title: String? = null, isDismissable: Boolean = IS_DISMISSABLE_DEFAULT) : super(context) {
+        initAttrs(andesMessageHierarchy, andesMessageState, body, title, isDismissable)
     }
 
     /**
@@ -58,8 +60,8 @@ class AndesMessage : FrameLayout {
     }
 
 
-    private fun initAttrs(andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, andesMessageIsDismissable: Boolean) {
-        config = AndesMessageFactory.create(context, andesMessageHierarchy, andesMessageState, andesMessageIsDismissable)
+    private fun initAttrs(andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, body: String, title: String?, andesMessageIsDismissable: Boolean) {
+        config = AndesMessageFactory.create(context, andesMessageHierarchy, andesMessageState, body, title, andesMessageIsDismissable)
         setupComponents()
     }
 
@@ -74,7 +76,7 @@ class AndesMessage : FrameLayout {
 
         setupTitleComponent()
 
-        setupDescriptionComponent()
+        setupBodyComponent()
 
         setupBackground()
 
@@ -96,7 +98,7 @@ class AndesMessage : FrameLayout {
 
         messageContainer = container.findViewById(R.id.andesui_message_container)
         titleComponent = container.findViewById(R.id.andesui_title)
-        descriptionComponent = container.findViewById(R.id.andesui_description)
+        bodyComponent = container.findViewById(R.id.andesui_body)
         iconComponent = container.findViewById(R.id.andesui_icon)
         dismissableComponent = container.findViewById(R.id.andesui_dismissable)
         pipeComponent = container.findViewById(R.id.andesui_pipe)
@@ -127,12 +129,12 @@ class AndesMessage : FrameLayout {
      * Gets data from the config and sets to the text component of this button.
      *
      */
-    private fun setupDescriptionComponent() {
-        descriptionComponent.text = config.descriptionText
-        descriptionComponent.setTextSize(TypedValue.COMPLEX_UNIT_PX, config.descriptionSize)
-        descriptionComponent.setTextColor(config.textColor)
-        descriptionComponent.typeface = config.descriptionTypeface
-//        descriptionComponent.lineHeight = config.lineHeight //FIXME Use TextViewCompat
+    private fun setupBodyComponent() {
+        bodyComponent.text = config.bodyText
+        bodyComponent.setTextSize(TypedValue.COMPLEX_UNIT_PX, config.bodySize)
+        bodyComponent.setTextColor(config.textColor)
+        bodyComponent.typeface = config.bodyTypeface
+//        bodyComponent.lineHeight = config.lineHeight //FIXME Use TextViewCompat
     }
 
     private fun setupBackground() {
@@ -163,7 +165,7 @@ class AndesMessage : FrameLayout {
         titleComponent.text = string
     }
 
-    fun setDescription(string: String) {
-        descriptionComponent.text = string
+    fun setBody(string: String) {
+        bodyComponent.text = string
     }
 }

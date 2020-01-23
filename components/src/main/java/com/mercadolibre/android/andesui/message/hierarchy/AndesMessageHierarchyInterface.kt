@@ -72,7 +72,9 @@ internal sealed class AndesMessageHierarchyInterface {
      * @param context needed for accessing some resources. In this case, for accessing the kotlin extension defines for the context.
      * @return the [Typeface] that should be used for the text inside the [AndesMessage].
      */
-    fun descriptionTypeface(context: Context): Typeface = context.getFontOrDefault(R.font.andesui_font_regular)
+    fun bodyTypeface(context: Context): Typeface = context.getFontOrDefault(R.font.andesui_font_regular)
+
+    abstract fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface): Int?
 
 }
 
@@ -81,6 +83,7 @@ internal object AndesLoudMessageHierarchy : AndesMessageHierarchyInterface() {
     override fun backgroundColor(context: Context, state: AndesMessageStateInterface) = state.primaryColor(context)
     override fun textColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_loud_text)
     override fun dismissableIconColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_loud_dismissable)
+    override fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface) = state.secondaryColor(context)
 }
 
 internal object AndesQuietMessageHierarchy : AndesMessageHierarchyInterface() {
@@ -88,4 +91,6 @@ internal object AndesQuietMessageHierarchy : AndesMessageHierarchyInterface() {
     override fun backgroundColor(context: Context, state: AndesMessageStateInterface) = backgroundColor(context)
     override fun textColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_text) //TODO Check
     override fun dismissableIconColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_dismissable)
+    override fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface) = state.primaryColor(context)
+
 }

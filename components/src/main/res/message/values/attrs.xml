@@ -16,7 +16,7 @@
 
         <attr name="andesMessageTitleText" format="reference" />
 
-        <attr name="andesMessageDescriptionText" format="reference" />
+        <attr name="andesMessageBodyText" format="reference" />
 
         <attr name="andesMessageDismissable" format="boolean" />
     </declare-styleable>

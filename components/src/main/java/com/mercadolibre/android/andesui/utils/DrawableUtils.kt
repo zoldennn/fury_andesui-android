@@ -3,7 +3,16 @@ package com.mercadolibre.android.andesui.utils
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
+import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.shapes.OvalShape
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
+
+
+
+
 
 /**
  * Receives a [BitmapDrawable] which will suffer some look overhauling that includes scaling and tinting.
@@ -32,4 +41,22 @@ internal fun buildColoredBitmapDrawable(image: BitmapDrawable, context: Context,
             .apply {
                 color?.let { setColorFilter(it, PorterDuff.Mode.SRC_IN) }
             }
+}
+
+internal fun buildColoredCircularShapeWithIconDrawable(image: BitmapDrawable, context: Context, iconColor: Int? = null, shapeColor: Int? = null): Drawable {
+    val icon = BitmapDrawable(context.resources, image.bitmap)
+            .apply {
+                iconColor?.let { setColorFilter(it, PorterDuff.Mode.SRC_IN) }
+            }
+    val biggerCircle = ShapeDrawable(OvalShape())
+    val size = 16;
+    biggerCircle.setIntrinsicHeight(size);
+    biggerCircle.setIntrinsicWidth(size);
+    biggerCircle.getPaint().setColor(shapeColor!!);
+    biggerCircle.setBounds(Rect(0, 0, size, size));
+    val layerDrawable = LayerDrawable(arrayOf<Drawable>(biggerCircle, icon ))
+
+    return layerDrawable
+
+
 }

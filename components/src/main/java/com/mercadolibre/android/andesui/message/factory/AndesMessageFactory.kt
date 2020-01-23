@@ -5,24 +5,24 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import com.mercadolibre.android.andesui.R
-import com.mercadolibre.android.andesui.message.state.AndesMessageState
-import com.mercadolibre.android.andesui.message.state.AndesMessageStateInterface
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchyInterface
+import com.mercadolibre.android.andesui.message.state.AndesMessageState
+import com.mercadolibre.android.andesui.message.state.AndesMessageStateInterface
 
 internal data class AndesMessageConfiguration(
         val iconBackgroundColor: Int,
         val backgroundColor: Int,
         val pipeColor: Int,
         val textColor: Int,
-        val titleText: String? = "Title",
-        val descriptionText: String? = "Description",
+        val titleText: String? = null,
+        val bodyText: String? = null,
         val titleSize: Float,
-        val descriptionSize: Float,
+        val bodySize: Float,
         val lineHeight: Int,
         val titleTypeface: Typeface?,
-        val descriptionTypeface: Typeface?,
-        val icon: Drawable?, //FIXME remove the ? once icon is properly configured
+        val bodyTypeface: Typeface?,
+        val icon: Drawable?,
         val isDismissable: Boolean,
         val dismissableIcon: Drawable?,
         val dismisssableIconColor: Int?,
@@ -62,13 +62,13 @@ internal object AndesMessageFactory {
                 pipeColor = resolvePipeColor(state, context),
                 textColor = resolveTextColor(hierarchy, context),
                 titleText = typedArray.getString(R.styleable.AndesMessage_andesMessageTitleText),
-                descriptionText = typedArray.getString(R.styleable.AndesMessage_andesMessageDescriptionText),
+                bodyText = typedArray.getString(R.styleable.AndesMessage_andesMessageBodyText),
                 titleSize = resolveTitleSize(context),
                 lineHeight = resolveLineHeight(context),
-                descriptionSize = resolveDescriptionSize(context),
+                bodySize = resolveBodySize(context),
                 titleTypeface = resolveTitleTypeface(hierarchy, context),
-                descriptionTypeface = resolveDescriptionTypeface(hierarchy, context),
-                icon = resolveIcon(state,context),
+                bodyTypeface = resolveBodyTypeface(hierarchy, context),
+                icon = resolveIcon(state, hierarchy, context),
                 isDismissable = typedArray.getBoolean(R.styleable.AndesMessage_andesMessageDismissable, false),
                 dismissableIcon = resolveDismissableIcon(hierarchy, context),
                 dismisssableIconColor = resolveDismissableIconColor(hierarchy, context),
@@ -79,7 +79,7 @@ internal object AndesMessageFactory {
     }
 
     @Override
-    fun create(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, isDismissable : Boolean) : AndesMessageConfiguration{
+    fun create(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, body: String, title: String?, isDismissable: Boolean): AndesMessageConfiguration {
         val hierarchy = andesMessageHierarchy.hierarchy
         val state = andesMessageState.state
 
@@ -88,12 +88,14 @@ internal object AndesMessageFactory {
                 backgroundColor = resolveBackgroundColor(hierarchy, state, context),
                 pipeColor = resolvePipeColor(state, context),
                 textColor = resolveTextColor(hierarchy, context),
+                titleText = title,
+                bodyText = body,
                 titleSize = resolveTitleSize(context),
                 lineHeight = resolveLineHeight(context),
-                descriptionSize = resolveDescriptionSize(context),
+                bodySize = resolveBodySize(context),
                 titleTypeface = resolveTitleTypeface(hierarchy, context),
-                descriptionTypeface = resolveDescriptionTypeface(hierarchy, context),
-                icon = resolveIcon(state, context),
+                bodyTypeface = resolveBodyTypeface(hierarchy, context),
+                icon = resolveIcon(state, hierarchy, context),
                 isDismissable = isDismissable,
                 dismissableIcon = resolveDismissableIcon(hierarchy, context),
                 dismisssableIconColor = resolveDismissableIconColor(hierarchy, context),
@@ -107,11 +109,11 @@ internal object AndesMessageFactory {
     private fun resolvePipeColor(state: AndesMessageStateInterface, context: Context) = state.pipeColor(context)
     private fun resolveTextColor(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.textColor(context)
     private fun resolveTitleSize(context: Context) = context.resources.getDimension(R.dimen.andesui_message_title)
-    private fun resolveDescriptionSize(context: Context) = context.resources.getDimension(R.dimen.andesui_message_description)
+    private fun resolveBodySize(context: Context) = context.resources.getDimension(R.dimen.andesui_message_body)
     private fun resolveLineHeight(context: Context) = context.resources.getDimension(R.dimen.andesui_message_line_height).toInt()
     private fun resolveTitleTypeface(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.titleTypeface(context)
-    private fun resolveDescriptionTypeface(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.descriptionTypeface(context)
-    private fun resolveIcon(state: AndesMessageStateInterface, context: Context) = state.icon(context)
+    private fun resolveBodyTypeface(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.bodyTypeface(context)
+    private fun resolveIcon(state: AndesMessageStateInterface, hierarchy: AndesMessageHierarchyInterface, context: Context) = state.icon(context, hierarchy)
     private fun resolveDismissableIcon(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.dismissableIcon(hierarchy, context)
     private fun resolveDismissableIconColor(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.dismissableIconColor(context)
 }
