@@ -120,6 +120,9 @@ class AndesMessage : FrameLayout {
      */
     private fun setupTitleComponent() {
         titleComponent.text = config.titleText
+        if(titleComponent.text == "" || titleComponent.text == null) {
+            titleComponent.visibility = View.GONE
+        }
         titleComponent.setTextSize(TypedValue.COMPLEX_UNIT_PX, config.titleSize)
         titleComponent.setTextColor(config.textColor)
         titleComponent.typeface = config.titleTypeface
