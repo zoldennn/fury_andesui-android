@@ -1,6 +1,7 @@
 package com.mercadolibre.android.andesui.utils
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.Rect
@@ -9,19 +10,21 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
-
+import android.os.Build
 
 /**
- * Receives a [BitmapDrawable] which will suffer some look overhauling that includes scaling and tinting.
+ * Receives a [BitmapDrawable] which will suffer some look overhauling that includes scaling and tinting based on received params such as size, color, etc.
  * When the polishing ends, it will return a new [BitmapDrawable].
  * Size of the icon is based on Andes Specification.
  *
  * @param image image of the icon. Ok: The icon.
  * @param context needed for accessing some resources like size, you know.
- * @param color we said we will be tinting the icon and this is the color.
+ * @param dstWidth wanted width of the icon.
+ * @param dstHeight wanted height of the icon.
+ * @param colors we said we will be tinting the icon and this is the color. Note that the color for state_enabled will be used. If it does not exist, 0 will be used.
  * @return a complete look overhauled [BitmapDrawable].
  */
-internal fun buildScaledColoredBitmapDrawable(image: BitmapDrawable, context: Context, dstWidth: Int, dstHeight: Int, color: Int? = null): BitmapDrawable {
+internal fun buildScaledColoredBitmapDrawable(image: BitmapDrawable, context: Context, dstWidth: Int, dstHeight: Int, colors: ColorStateList?): BitmapDrawable {
     val scaledBitmap = Bitmap.createScaledBitmap(
             image.bitmap,
             dstWidth,
@@ -29,7 +32,14 @@ internal fun buildScaledColoredBitmapDrawable(image: BitmapDrawable, context: Co
             true)
     return BitmapDrawable(context.resources, scaledBitmap)
             .apply {
-                color?.let { setColorFilter(it, PorterDuff.Mode.SRC_IN) }
+                colors?.let {
+                    if (isLollipopOrNewer()) {
+                        setTintMode(PorterDuff.Mode.SRC_IN)
+                        setTintList(it)
+                    } else {
+                        setColorFilter(it.getColorForState(intArrayOf(android.R.attr.state_enabled), 0), PorterDuff.Mode.SRC_IN)
+                    }
+                }
             }
 }
 
@@ -51,3 +61,5 @@ internal fun buildColoredCircularShapeWithIconDrawable(image: BitmapDrawable, co
 
     return LayerDrawable(arrayOf(biggerCircle, icon))
 }
+
+private fun isLollipopOrNewer() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
