@@ -20,7 +20,6 @@ class AndesMessage : FrameLayout {
     companion object {
         private val HIERARCHY_DEFAULT = AndesMessageHierarchy.LOUD
         private val STATE_DEFAULT = AndesMessageState.HIGHLIGHT
-        private val BODY_DEFAULT = "Andes Message Body"
         private val TITLE_DEFAULT = null
         private const val IS_DISMISSABLE_DEFAULT = false
     }
@@ -33,8 +32,8 @@ class AndesMessage : FrameLayout {
     private lateinit var pipeComponent: View
     private lateinit var config: AndesMessageConfiguration
 
-    constructor(context: Context) : super(context) {
-        initAttrs(HIERARCHY_DEFAULT, STATE_DEFAULT, BODY_DEFAULT, TITLE_DEFAULT, IS_DISMISSABLE_DEFAULT)
+    private constructor(context: Context) : super(context) {
+        throw IllegalStateException("Constructor without parameters in Andes Message is not allowed. You must provide some attributes.")
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context) {
@@ -45,7 +44,13 @@ class AndesMessage : FrameLayout {
         initAttrs(attrs)
     }
 
-    constructor(context: Context, andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, body: String, title: String? = null, isDismissable: Boolean = IS_DISMISSABLE_DEFAULT) : super(context) {
+    constructor(context: Context,
+                andesMessageHierarchy: AndesMessageHierarchy = HIERARCHY_DEFAULT,
+                andesMessageState: AndesMessageState = STATE_DEFAULT,
+                body: String,
+                title: String? = TITLE_DEFAULT,
+                isDismissable: Boolean = IS_DISMISSABLE_DEFAULT
+    ) : super(context) {
         initAttrs(andesMessageHierarchy, andesMessageState, body, title, isDismissable)
     }
 
@@ -87,7 +92,6 @@ class AndesMessage : FrameLayout {
         setupDismissable()
     }
 
-
     /**
      * Creates all the views that are part of this message.
      * After a view is created then a view id is added to it.
@@ -119,12 +123,11 @@ class AndesMessage : FrameLayout {
      *
      */
     private fun setupTitleComponent() {
-        if(config.titleText == "" || config.titleText == null) {
+        if (config.titleText == null || config.titleText == "") {
             titleComponent.visibility = View.GONE
-        }
-        else {
-            titleComponent.text = config.titleText
+        } else {
             titleComponent.visibility = View.VISIBLE
+            titleComponent.text = config.titleText
             titleComponent.setTextSize(TypedValue.COMPLEX_UNIT_PX, config.titleSize)
             titleComponent.setTextColor(config.textColor)
             titleComponent.typeface = config.titleTypeface

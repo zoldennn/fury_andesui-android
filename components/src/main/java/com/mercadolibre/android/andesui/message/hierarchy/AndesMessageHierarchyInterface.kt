@@ -50,7 +50,12 @@ internal sealed class AndesMessageHierarchyInterface {
     @ColorInt
     abstract fun dismissableIconColor(context: Context): Int
 
-    //TODO Documentar
+    /**
+     * Returns the [Drawable] that will be used as the dismiss icon.
+     *
+     * @param hierarchy needed to obtain the color of the dismiss icon.
+     * @param context needed for accessing some resources.
+     */
     fun dismissableIcon(hierarchy: AndesMessageHierarchyInterface, context: Context) =
             buildColoredBitmapDrawable(
                     ContextCompat.getDrawable(context, R.drawable.andesui_ui_close_20) as BitmapDrawable,
@@ -74,8 +79,14 @@ internal sealed class AndesMessageHierarchyInterface {
      */
     fun bodyTypeface(context: Context): Typeface = context.getFontOrDefault(R.font.andesui_font_regular)
 
+    /**
+     * Returns the background color that the icon will have. It's the color of the container in which the icon will live.
+     *
+     * @param context needed for accessing some resources.
+     * @param state needed because the background color is intimately related to the state of the Message.
+     * @return the background color that the icon will have.
+     */
     abstract fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface): Int?
-
 }
 
 internal object AndesLoudMessageHierarchy : AndesMessageHierarchyInterface() {
@@ -92,5 +103,4 @@ internal object AndesQuietMessageHierarchy : AndesMessageHierarchyInterface() {
     override fun textColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_text) //TODO Check
     override fun dismissableIconColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_dismissable)
     override fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface) = state.primaryColor(context)
-
 }

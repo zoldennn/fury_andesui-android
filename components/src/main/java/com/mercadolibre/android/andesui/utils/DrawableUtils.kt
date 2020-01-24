@@ -5,13 +5,10 @@ import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.shapes.OvalShape
-import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
-
-
-
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 
 
 /**
@@ -43,19 +40,14 @@ internal fun buildColoredBitmapDrawable(image: BitmapDrawable, context: Context,
             }
 }
 
-internal fun buildColoredCircularShapeWithIconDrawable(image: BitmapDrawable, context: Context, iconColor: Int? = null, shapeColor: Int? = null, diameter : Int): Drawable {
-    val icon = BitmapDrawable(context.resources, image.bitmap)
-            .apply {
-                iconColor?.let { setColorFilter(it, PorterDuff.Mode.SRC_IN) }
-            }
+internal fun buildColoredCircularShapeWithIconDrawable(image: BitmapDrawable, context: Context, iconColor: Int? = null, shapeColor: Int? = null, diameter: Int): Drawable {
+    val icon = buildColoredBitmapDrawable(image, context, iconColor)
+
     val biggerCircle = ShapeDrawable(OvalShape())
-    val size = diameter
-    biggerCircle.intrinsicHeight = size
-    biggerCircle.intrinsicWidth = size
+    biggerCircle.intrinsicHeight = diameter
+    biggerCircle.intrinsicWidth = diameter
     biggerCircle.paint.color = shapeColor!!
-    biggerCircle.bounds = Rect(0, 0, size, size)
-    return LayerDrawable(arrayOf(biggerCircle, icon ))
-    //FIXME Refactor this method
+    biggerCircle.bounds = Rect(0, 0, diameter, diameter)
 
-
+    return LayerDrawable(arrayOf(biggerCircle, icon))
 }
