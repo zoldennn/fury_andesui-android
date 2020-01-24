@@ -1,7 +1,8 @@
 # v1.0.1
 # Fixed
+- Icon wasn't changing when AndesButton was disabled.
 - Changelog updated
 
 # v1.0.0
-# Bienvenido
-- Release inicial de Andes UI. Incluye el componente AndesButton.
+# Welcome!
+- Initial release of Andes UI Library. AndesButton is included as the first component.

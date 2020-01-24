@@ -1,14 +1,18 @@
 package com.mercadolibre.android.andesui.button.size
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.os.Build
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.button.factory.IconConfig
 import com.mercadolibre.android.andesui.button.hierarchy.AndesButtonHierarchyInterface
+
+const val DEFAULT_ICON_COLOR: Int = 0
 
 /**
  * Defines all size related properties that an [AndesButton] needs to be drawn properly.
@@ -80,7 +84,7 @@ internal interface AndesButtonSizeInterface {
      */
     fun rightIconRightMargin(context: Context) = 0
 
-    fun lateralPadding(context: Context) : Int
+    fun lateralPadding(context: Context): Int
 
     /**
      * Returns a [Float] representing the corner radius to be used.
@@ -180,10 +184,10 @@ internal class AndesSmallButtonSize : AndesButtonSizeInterface {
  *
  * @param image image of the icon. Ok: The icon.
  * @param context needed for accessing some resources like size, you know.
- * @param color we said we will be tinting the icon and this is the color.
+ * @param color we said we will be tinting the icon and this is the color list (color pends on the state). For API<21 the color corresponding to state_enabled will be used.
  * @return a complete look overhauled [BitmapDrawable].
  */
-private fun buildScaledBitmapDrawable(image: BitmapDrawable, context: Context, color: Int? = null): BitmapDrawable {
+private fun buildScaledBitmapDrawable(image: BitmapDrawable, context: Context, color: ColorStateList? = null): BitmapDrawable {
     val scaledBitmap = Bitmap.createScaledBitmap(
             image.bitmap,
             context.resources.getDimensionPixelSize(R.dimen.andesui_button_icon_width),
@@ -191,6 +195,15 @@ private fun buildScaledBitmapDrawable(image: BitmapDrawable, context: Context, c
             true)
     return BitmapDrawable(context.resources, scaledBitmap)
             .apply {
-                color?.let { setColorFilter(it, PorterDuff.Mode.SRC_IN) }
+                color?.let {
+                    if (isLollipopOrNewer()) {
+                        setTintMode(PorterDuff.Mode.SRC_IN)
+                        setTintList(it)
+                    } else {
+                        setColorFilter(it.getColorForState(intArrayOf(android.R.attr.state_enabled), DEFAULT_ICON_COLOR), PorterDuff.Mode.SRC_IN)
+                    }
+                }
             }
 }
+
+fun isLollipopOrNewer() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
