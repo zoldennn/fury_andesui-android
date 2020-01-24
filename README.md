@@ -14,8 +14,8 @@ You can include this module by adding the dependency to your build.gradle file.
 implementation com.mercadolibre.android.andesui:components:X.Y.Z
 ```
 
-### Latest version[ ![Download]
-(https://api.bintray.com/packages/mercadolibre/android-public/com.mercadolibre.android.andesui.components/images/download.svg) ](https://bintray.com/mercadolibre/android-public/com.mercadolibre.android.andesui.components/_latestVersion)
+### Latest version
+[ ![Download](https://api.bintray.com/packages/mercadolibre/android-public/com.mercadolibre.android.andesui.components/images/download.svg) ](https://bintray.com/mercadolibre/android-public/com.mercadolibre.android.andesui.components/_latestVersion)
 
 ## Useful links
 

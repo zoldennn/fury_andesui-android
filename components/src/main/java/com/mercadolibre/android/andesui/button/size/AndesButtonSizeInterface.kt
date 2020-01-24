@@ -1,18 +1,13 @@
 package com.mercadolibre.android.andesui.button.size
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Bitmap
-import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.os.Build
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.button.factory.IconConfig
 import com.mercadolibre.android.andesui.button.hierarchy.AndesButtonHierarchyInterface
-
-const val DEFAULT_ICON_COLOR: Int = 0
+import com.mercadolibre.android.andesui.utils.buildScaledColoredBitmapDrawable
 
 /**
  * Defines all size related properties that an [AndesButton] needs to be drawn properly.
@@ -132,12 +127,24 @@ internal class AndesLargeButtonSize : AndesButtonSizeInterface {
     override fun cornerRadius(context: Context) = context.resources.getDimension(R.dimen.andesui_button_border_radius_large)
     override fun iconConfig(hierarchy: AndesButtonHierarchyInterface, leftIcon: Drawable?, rightIcon: Drawable?, context: Context): IconConfig? {
         if (leftIcon != null) { //Ignoring if rightIcon is also non null: Left icon has higher precedence than right
-            val leftBitmapDrawable = buildScaledBitmapDrawable(leftIcon as BitmapDrawable, context, hierarchy.iconColor(context))
+            val leftBitmapDrawable = buildScaledColoredBitmapDrawable(
+                    leftIcon as BitmapDrawable,
+                    context,
+                    context.resources.getDimensionPixelSize(R.dimen.andesui_button_icon_width),
+                    context.resources.getDimensionPixelSize(R.dimen.andesui_button_icon_height),
+                    hierarchy.iconColor(context)
+            )
             return IconConfig(leftIcon = leftBitmapDrawable, rightIcon = null)
         }
 
         if (rightIcon != null) {
-            val rightBitmapDrawable = buildScaledBitmapDrawable(rightIcon as BitmapDrawable, context, hierarchy.iconColor(context))
+            val rightBitmapDrawable = buildScaledColoredBitmapDrawable(
+                    rightIcon as BitmapDrawable,
+                    context,
+                    context.resources.getDimensionPixelSize(R.dimen.andesui_button_icon_width),
+                    context.resources.getDimensionPixelSize(R.dimen.andesui_button_icon_height),
+                    hierarchy.iconColor(context)
+            )
             return IconConfig(leftIcon = null, rightIcon = rightBitmapDrawable)
         }
 
@@ -176,34 +183,3 @@ internal class AndesSmallButtonSize : AndesButtonSizeInterface {
     override fun cornerRadius(context: Context) = context.resources.getDimension(R.dimen.andesui_button_border_radius_small)
     override fun iconConfig(hierarchy: AndesButtonHierarchyInterface, leftIcon: Drawable?, rightIcon: Drawable?, context: Context): Nothing? = null
 }
-
-/**
- * Receives a [BitmapDrawable] which will suffer some look overhauling that includes scaling and tinting.
- * When the polishing ends, it will return a new [BitmapDrawable].
- * Size of the icon is based on Andes Specification.
- *
- * @param image image of the icon. Ok: The icon.
- * @param context needed for accessing some resources like size, you know.
- * @param color we said we will be tinting the icon and this is the color list (color pends on the state). For API<21 the color corresponding to state_enabled will be used.
- * @return a complete look overhauled [BitmapDrawable].
- */
-private fun buildScaledBitmapDrawable(image: BitmapDrawable, context: Context, color: ColorStateList? = null): BitmapDrawable {
-    val scaledBitmap = Bitmap.createScaledBitmap(
-            image.bitmap,
-            context.resources.getDimensionPixelSize(R.dimen.andesui_button_icon_width),
-            context.resources.getDimensionPixelSize(R.dimen.andesui_button_icon_height),
-            true)
-    return BitmapDrawable(context.resources, scaledBitmap)
-            .apply {
-                color?.let {
-                    if (isLollipopOrNewer()) {
-                        setTintMode(PorterDuff.Mode.SRC_IN)
-                        setTintList(it)
-                    } else {
-                        setColorFilter(it.getColorForState(intArrayOf(android.R.attr.state_enabled), DEFAULT_ICON_COLOR), PorterDuff.Mode.SRC_IN)
-                    }
-                }
-            }
-}
-
-fun isLollipopOrNewer() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
