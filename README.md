@@ -42,14 +42,6 @@ If you want to know more about it, you can watch this [explanation video](https:
 
 This library needs Android API 19+ (4.4+) to work.
 
-## How to make a local publish
-
-``
-./gradlew build publishToMavenLocal
-``
-
-Pro tip: First change the version name in gradle.properties to X.XX.X-LOCAL (Note that we use [SemVer](https://semver.org/)).
-
 ## DON'Ts
 
 We’re aligned with [these concepts](https://proandroiddev.com/how-to-maximize-androids-ui-reusability-5-common-mistakes-cb2571216a9f). Please be sure to follow them:

@@ -1,8 +1,11 @@
-# v1.1.0
+# v1.0.1
 # Added
 - Initial release for AndesMessage.
 
-# v1.0.0
-# Bienvenido
-- Release inicial de Andes UI. Incluye el componente AndesButton.
+# Fixed
+- Icon wasn't changing when AndesButton was disabled.
+- Changelog updated
 
+# v1.0.0
+# Welcome!
+- Initial release of Andes UI Library. AndesButton is included as the first component.
