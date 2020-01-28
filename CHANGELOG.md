@@ -1,3 +1,10 @@
+# v1.2.0
+# Added
+- Allows changes of state, hierarchy and dismiss in runtime.
+
+# Fixed
+- Properties getters and setters.
+
 # v1.1.0
 # Added
 - Initial release for AndesMessage.

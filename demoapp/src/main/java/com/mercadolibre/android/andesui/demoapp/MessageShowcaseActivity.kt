@@ -14,6 +14,8 @@ import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
 import com.mercadolibre.android.andesui.message.AndesMessage
+import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
+import com.mercadolibre.android.andesui.message.state.AndesMessageState
 
 class MessageShowcaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +70,11 @@ class MessageShowcaseActivity : AppCompatActivity() {
 
             button.setOnClickListener {
                 val message = (layoutMessages.getChildAt(0) as LinearLayout).getChildAt(2) as AndesMessage
-                message.setTitle("Soy un titulo muy largo y hago muchas cosas como setear la hora " +  System.currentTimeMillis())
+                message.title =("Soy un titulo muy largo y hago muchas cosas como setear la hora " +  System.currentTimeMillis())
+                message.hierarchy = (AndesMessageHierarchy.LOUD)
+                message.state = (AndesMessageState.SUCCESS)
+                message.isDismissable = false
+                message.body = "cambie mi body"
             }
 
             return listOf<View>(layoutMessages)

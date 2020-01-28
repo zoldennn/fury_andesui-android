@@ -10,19 +10,63 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.mercadolibre.android.andesui.R
+import com.mercadolibre.android.andesui.message.factory.AndesMessageAttrs
+import com.mercadolibre.android.andesui.message.factory.AndesMessageAttrsParser
 import com.mercadolibre.android.andesui.message.factory.AndesMessageConfiguration
-import com.mercadolibre.android.andesui.message.factory.AndesMessageFactory
+import com.mercadolibre.android.andesui.message.factory.AndesMessageConfigurationFactory
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
 import com.mercadolibre.android.andesui.message.state.AndesMessageState
 
 class AndesMessage : FrameLayout {
 
-    companion object {
-        private val HIERARCHY_DEFAULT = AndesMessageHierarchy.LOUD
-        private val STATE_DEFAULT = AndesMessageState.HIGHLIGHT
-        private val TITLE_DEFAULT = null
-        private const val IS_DISMISSABLE_DEFAULT = false
-    }
+    /**
+     * Getter and setter for [hierarchy].
+     */
+    var hierarchy: AndesMessageHierarchy
+        get() = andesMessageAttrs.andesMessageHierarchy
+        set(value) {
+            andesMessageAttrs = andesMessageAttrs.copy(andesMessageHierarchy = value)
+            setupColorComponents(createConfig())
+        }
+    /**
+     * Getter and setter for [state].
+     */
+    var state: AndesMessageState
+        get() = andesMessageAttrs.andesMessageState
+        set(value) {
+            andesMessageAttrs = andesMessageAttrs.copy(andesMessageState = value)
+            setupColorComponents(createConfig())
+        }
+
+    /**
+     * Getter and setter for [body].
+     */
+    var body: String
+        get() = andesMessageAttrs.body
+        set(value) {
+            andesMessageAttrs = andesMessageAttrs.copy(body = value)
+            setupBodyComponent(createConfig())
+        }
+
+    /**
+     * Getter and setter for [title].
+     */
+    var title: String?
+        get() = andesMessageAttrs.body
+        set(value) {
+            andesMessageAttrs = andesMessageAttrs.copy(title = value)
+            setupTitleComponent(createConfig())
+        }
+
+    /**
+     * Getter and setter for [isDismissable].
+     */
+    var isDismissable: Boolean
+        get() = andesMessageAttrs.isDismissable
+        set(value) {
+            andesMessageAttrs = andesMessageAttrs.copy(isDismissable = value)
+            setupDismissable(createConfig())
+        }
 
     private lateinit var messageContainer: ConstraintLayout
     private lateinit var titleComponent: TextView
@@ -30,8 +74,9 @@ class AndesMessage : FrameLayout {
     private lateinit var iconComponent: ImageView
     private lateinit var dismissableComponent: ImageView
     private lateinit var pipeComponent: View
-    private lateinit var config: AndesMessageConfiguration
+    private lateinit var andesMessageAttrs: AndesMessageAttrs
 
+    @Suppress("unused")
     private constructor(context: Context) : super(context) {
         throw IllegalStateException("Constructor without parameters in Andes Message is not allowed. You must provide some attributes.")
     }
@@ -44,14 +89,15 @@ class AndesMessage : FrameLayout {
         initAttrs(attrs)
     }
 
+    @Suppress("unused")
     constructor(context: Context,
-                andesMessageHierarchy: AndesMessageHierarchy = HIERARCHY_DEFAULT,
-                andesMessageState: AndesMessageState = STATE_DEFAULT,
+                hierarchy: AndesMessageHierarchy = HIERARCHY_DEFAULT,
+                state: AndesMessageState = STATE_DEFAULT,
                 body: String,
                 title: String? = TITLE_DEFAULT,
-                isDismissable: Boolean = IS_DISMISSABLE_DEFAULT
+                isDismissable: Boolean = IS_DISMISSIBLE_DEFAULT
     ) : super(context) {
-        initAttrs(andesMessageHierarchy, andesMessageState, body, title, isDismissable)
+        initAttrs(hierarchy, state, body, title, isDismissable)
     }
 
     /**
@@ -60,14 +106,16 @@ class AndesMessage : FrameLayout {
      * @param attrs attributes from the XML.
      */
     private fun initAttrs(attrs: AttributeSet?) {
-        config = AndesMessageFactory.create(context, attrs)
-        setupComponents()
+        andesMessageAttrs = AndesMessageAttrsParser.parse(context, attrs)
+        val config = AndesMessageConfigurationFactory.create(context, andesMessageAttrs)
+        setupComponents(config)
     }
 
 
-    private fun initAttrs(andesMessageHierarchy: AndesMessageHierarchy, andesMessageState: AndesMessageState, body: String, title: String?, andesMessageIsDismissable: Boolean) {
-        config = AndesMessageFactory.create(context, andesMessageHierarchy, andesMessageState, body, title, andesMessageIsDismissable)
-        setupComponents()
+    private fun initAttrs(hierarchy: AndesMessageHierarchy, state: AndesMessageState, body: String, title: String?, isDismissable: Boolean) {
+        andesMessageAttrs = AndesMessageAttrs(hierarchy, state, body, title, isDismissable)
+        val config = AndesMessageConfigurationFactory.create(context, andesMessageAttrs)
+        setupComponents(config)
     }
 
     /**
@@ -75,21 +123,20 @@ class AndesMessage : FrameLayout {
      * Is like a choreographer ;)
      *
      */
-    private fun setupComponents() {
+    private fun setupComponents(config: AndesMessageConfiguration) {
         initComponents()
         setupViewId()
 
-        setupTitleComponent()
+        setupColorComponents(config)
+        setupDismissable(config)
+    }
 
-        setupBodyComponent()
-
-        setupBackground()
-
-        setupPipe()
-
-        setupIcon()
-
-        setupDismissable()
+    private fun setupColorComponents(config: AndesMessageConfiguration) {
+        setupTitleComponent(config)
+        setupBodyComponent(config)
+        setupBackground(config)
+        setupPipe(config)
+        setupIcon(config)
     }
 
     /**
@@ -122,7 +169,7 @@ class AndesMessage : FrameLayout {
      * Gets data from the config and sets to the text component of this button.
      *
      */
-    private fun setupTitleComponent() {
+    private fun setupTitleComponent(config: AndesMessageConfiguration) {
         if (config.titleText == null || config.titleText == "") {
             titleComponent.visibility = View.GONE
         } else {
@@ -138,7 +185,7 @@ class AndesMessage : FrameLayout {
      * Gets data from the config and sets to the text component of this button.
      *
      */
-    private fun setupBodyComponent() {
+    private fun setupBodyComponent(config: AndesMessageConfiguration) {
         bodyComponent.text = config.bodyText
         bodyComponent.setTextSize(TypedValue.COMPLEX_UNIT_PX, config.bodySize)
         bodyComponent.setTextColor(config.textColor)
@@ -146,20 +193,20 @@ class AndesMessage : FrameLayout {
 //        bodyComponent.lineHeight = config.lineHeight //FIXME Use TextViewCompat
     }
 
-    private fun setupBackground() {
+    private fun setupBackground(config: AndesMessageConfiguration) {
         messageContainer.setBackgroundColor(config.backgroundColor)
     }
 
-    private fun setupPipe() {
+    private fun setupPipe(config: AndesMessageConfiguration) {
         pipeComponent.setBackgroundColor(config.pipeColor)
     }
 
-    private fun setupIcon() {
+    private fun setupIcon(config: AndesMessageConfiguration) {
         iconComponent.setImageDrawable(config.icon)
         dismissableComponent.setImageDrawable(config.dismissableIcon)
     }
 
-    private fun setupDismissable() {
+    private fun setupDismissable(config: AndesMessageConfiguration) {
         if (config.isDismissable) {
             dismissableComponent.visibility = View.VISIBLE
             dismissableComponent.setOnClickListener {
@@ -170,11 +217,13 @@ class AndesMessage : FrameLayout {
         }
     }
 
-    fun setTitle(string: String) {
-        titleComponent.text = string
-    }
 
-    fun setBody(string: String) {
-        bodyComponent.text = string
+    private fun createConfig() = AndesMessageConfigurationFactory.create(context, andesMessageAttrs)
+
+    companion object {
+        private val HIERARCHY_DEFAULT = AndesMessageHierarchy.LOUD
+        private val STATE_DEFAULT = AndesMessageState.HIGHLIGHT
+        private val TITLE_DEFAULT = null
+        private const val IS_DISMISSIBLE_DEFAULT = false
     }
 }
