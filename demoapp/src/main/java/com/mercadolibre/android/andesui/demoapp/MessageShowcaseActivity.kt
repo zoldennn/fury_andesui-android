@@ -14,7 +14,7 @@ import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
 import com.mercadolibre.android.andesui.message.AndesMessage
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
-import com.mercadolibre.android.andesui.message.state.AndesMessageState
+import com.mercadolibre.android.andesui.message.state.AndesMessageType
 
 class MessageShowcaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +60,7 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 val hour = System.currentTimeMillis().toString()
                 message.title = ("The current millis are: $hour")
                 message.hierarchy = (AndesMessageHierarchy.LOUD)
-                message.state = (AndesMessageState.SUCCESS)
+                message.type = (AndesMessageType.SUCCESS)
                 message.isDismissable = false
                 message.body = "I insist. Current millis are: $hour"
             }

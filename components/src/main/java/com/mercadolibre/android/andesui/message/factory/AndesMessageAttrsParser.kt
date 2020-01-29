@@ -4,13 +4,13 @@ import android.content.Context
 import android.util.AttributeSet
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
-import com.mercadolibre.android.andesui.message.state.AndesMessageState
+import com.mercadolibre.android.andesui.message.state.AndesMessageType
 
 /**
  * The data class that contains the public components of the message.
  */
 internal data class AndesMessageAttrs(val andesMessageHierarchy: AndesMessageHierarchy,
-                                      val andesMessageState: AndesMessageState,
+                                      val andesMessageType: AndesMessageType,
                                       val body: String,
                                       val title: String?,
                                       val isDismissable: Boolean)
@@ -37,17 +37,17 @@ internal object AndesMessageAttrsParser {
             else -> AndesMessageHierarchy.LOUD
         }
 
-        val state = when (typedArray.getString(R.styleable.AndesMessage_andesMessageState)) {
-            ANDES_MESSAGE_STATE_NEUTRAL -> AndesMessageState.NEUTRAL
-            ANDES_MESSAGE_STATE_SUCCESS -> AndesMessageState.SUCCESS
-            ANDES_MESSAGE_STATE_WARNING -> AndesMessageState.WARNING
-            ANDES_MESSAGE_STATE_ERROR -> AndesMessageState.ERROR
-            else -> AndesMessageState.NEUTRAL
+        val state = when (typedArray.getString(R.styleable.AndesMessage_andesMessageType)) {
+            ANDES_MESSAGE_STATE_NEUTRAL -> AndesMessageType.NEUTRAL
+            ANDES_MESSAGE_STATE_SUCCESS -> AndesMessageType.SUCCESS
+            ANDES_MESSAGE_STATE_WARNING -> AndesMessageType.WARNING
+            ANDES_MESSAGE_STATE_ERROR -> AndesMessageType.ERROR
+            else -> AndesMessageType.NEUTRAL
         }
 
         return AndesMessageAttrs(
                 andesMessageHierarchy = hierarchy,
-                andesMessageState = state,
+                andesMessageType = state,
                 body = typedArray.getString(R.styleable.AndesMessage_andesMessageBodyText) ?: throw IllegalArgumentException("Body is a mandatory parameter"),
                 title = typedArray.getString(R.styleable.AndesMessage_andesMessageTitleText),
                 isDismissable = typedArray.getBoolean(R.styleable.AndesMessage_andesMessageDismissable, false)

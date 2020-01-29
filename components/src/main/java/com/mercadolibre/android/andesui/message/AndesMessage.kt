@@ -15,7 +15,7 @@ import com.mercadolibre.android.andesui.message.factory.AndesMessageAttrsParser
 import com.mercadolibre.android.andesui.message.factory.AndesMessageConfiguration
 import com.mercadolibre.android.andesui.message.factory.AndesMessageConfigurationFactory
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
-import com.mercadolibre.android.andesui.message.state.AndesMessageState
+import com.mercadolibre.android.andesui.message.state.AndesMessageType
 
 class AndesMessage : FrameLayout {
 
@@ -29,12 +29,12 @@ class AndesMessage : FrameLayout {
             setupColorComponents(createConfig())
         }
     /**
-     * Getter and setter for [state].
+     * Getter and setter for [type].
      */
-    var state: AndesMessageState
-        get() = andesMessageAttrs.andesMessageState
+    var type: AndesMessageType
+        get() = andesMessageAttrs.andesMessageType
         set(value) {
-            andesMessageAttrs = andesMessageAttrs.copy(andesMessageState = value)
+            andesMessageAttrs = andesMessageAttrs.copy(andesMessageType = value)
             setupColorComponents(createConfig())
         }
 
@@ -92,12 +92,12 @@ class AndesMessage : FrameLayout {
     @Suppress("unused")
     constructor(context: Context,
                 hierarchy: AndesMessageHierarchy = HIERARCHY_DEFAULT,
-                state: AndesMessageState = STATE_DEFAULT,
+                type: AndesMessageType = STATE_DEFAULT,
                 body: String,
                 title: String? = TITLE_DEFAULT,
                 isDismissable: Boolean = IS_DISMISSIBLE_DEFAULT
     ) : super(context) {
-        initAttrs(hierarchy, state, body, title, isDismissable)
+        initAttrs(hierarchy, type, body, title, isDismissable)
     }
 
     /**
@@ -112,8 +112,8 @@ class AndesMessage : FrameLayout {
     }
 
 
-    private fun initAttrs(hierarchy: AndesMessageHierarchy, state: AndesMessageState, body: String, title: String?, isDismissable: Boolean) {
-        andesMessageAttrs = AndesMessageAttrs(hierarchy, state, body, title, isDismissable)
+    private fun initAttrs(hierarchy: AndesMessageHierarchy, type: AndesMessageType, body: String, title: String?, isDismissable: Boolean) {
+        andesMessageAttrs = AndesMessageAttrs(hierarchy, type, body, title, isDismissable)
         val config = AndesMessageConfigurationFactory.create(context, andesMessageAttrs)
         setupComponents(config)
     }
@@ -222,7 +222,7 @@ class AndesMessage : FrameLayout {
 
     companion object {
         private val HIERARCHY_DEFAULT = AndesMessageHierarchy.LOUD
-        private val STATE_DEFAULT = AndesMessageState.NEUTRAL
+        private val STATE_DEFAULT = AndesMessageType.NEUTRAL
         private val TITLE_DEFAULT = null
         private const val IS_DISMISSIBLE_DEFAULT = false
     }

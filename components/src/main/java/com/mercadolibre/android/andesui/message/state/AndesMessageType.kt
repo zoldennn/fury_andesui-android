@@ -8,7 +8,7 @@ package com.mercadolibre.android.andesui.message.state
  *
  * @property state Possible styles that an [AndesMessage] may take.
  */
-enum class AndesMessageState {
+enum class AndesMessageType {
     NEUTRAL,
     SUCCESS,
     WARNING,
