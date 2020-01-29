@@ -2,6 +2,8 @@
 # Fixed
 - An AndesMessage couldn't be found by its id due to a missing param in the constructor super() call.
 - Renamed `Highlight` state to `Neutral`.
+- Changed App Name of Demo App.
+- Main buttons of Demo App now have lateral margins.
 
 # Added
 - Enabled animateLayoutChanges() flag.
