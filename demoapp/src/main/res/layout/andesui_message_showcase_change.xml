@@ -53,15 +53,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/change_text"
-
-            />
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/body_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/change_body"
-            />
+            android:inputType="text" />
 
         <com.mercadolibre.android.andesui.button.AndesButton
             android:id="@+id/change_button"
