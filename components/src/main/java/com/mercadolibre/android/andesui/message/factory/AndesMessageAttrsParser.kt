@@ -23,7 +23,7 @@ internal object AndesMessageAttrsParser {
     private const val ANDES_MESSAGE_HIERARCHY_LOUD = "1000"
     private const val ANDES_MESSAGE_HIERARCHY_QUIET = "1001"
 
-    private const val ANDES_MESSAGE_STATE_HIGHLIGHT = "2000"
+    private const val ANDES_MESSAGE_STATE_NEUTRAL = "2000"
     private const val ANDES_MESSAGE_STATE_SUCCESS = "2001"
     private const val ANDES_MESSAGE_STATE_WARNING = "2002"
     private const val ANDES_MESSAGE_STATE_ERROR = "2003"
@@ -38,11 +38,11 @@ internal object AndesMessageAttrsParser {
         }
 
         val state = when (typedArray.getString(R.styleable.AndesMessage_andesMessageState)) {
-            ANDES_MESSAGE_STATE_HIGHLIGHT -> AndesMessageState.HIGHLIGHT
+            ANDES_MESSAGE_STATE_NEUTRAL -> AndesMessageState.NEUTRAL
             ANDES_MESSAGE_STATE_SUCCESS -> AndesMessageState.SUCCESS
             ANDES_MESSAGE_STATE_WARNING -> AndesMessageState.WARNING
             ANDES_MESSAGE_STATE_ERROR -> AndesMessageState.ERROR
-            else -> AndesMessageState.HIGHLIGHT
+            else -> AndesMessageState.NEUTRAL
         }
 
         return AndesMessageAttrs(

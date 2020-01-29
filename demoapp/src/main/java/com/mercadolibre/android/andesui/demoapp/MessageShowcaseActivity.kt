@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.ScrollView
 import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.demoapp.PageIndicator
@@ -26,18 +25,6 @@ class MessageShowcaseActivity : AppCompatActivity() {
         viewPager.adapter = AndesShowcasePagerAdapter(this)
         val indicator = findViewById<PageIndicator>(R.id.page_indicator)
         indicator.attach(viewPager)
-
-        val adapter = viewPager.adapter as AndesShowcasePagerAdapter
-        addMessage(adapter.views[0])
-    }
-
-    private fun addMessage(container: View) {
-        //TODO Create a Message view
-
-        val linearLoud = container.findViewById<LinearLayout>(R.id.andes_loud_container)
-
-        //TODO Add messages to the linear layout
-        //linearLoud.addView(andesMessage)
     }
 
     class AndesShowcasePagerAdapter(private val context: Context) : PagerAdapter() {
@@ -69,12 +56,13 @@ class MessageShowcaseActivity : AppCompatActivity() {
             val button = layoutMessages.findViewById<AndesButton>(R.id.button)
 
             button.setOnClickListener {
-                val message = (layoutMessages.getChildAt(0) as LinearLayout).getChildAt(2) as AndesMessage
-                message.title =("Soy un titulo muy largo y hago muchas cosas como setear la hora " +  System.currentTimeMillis())
+                val message = layoutMessages.findViewById<AndesMessage>(R.id.message_loud)
+                val hour = System.currentTimeMillis().toString()
+                message.title = ("The current millis are: $hour")
                 message.hierarchy = (AndesMessageHierarchy.LOUD)
                 message.state = (AndesMessageState.SUCCESS)
                 message.isDismissable = false
-                message.body = "cambie mi body"
+                message.body = "I insist. Current millis are: $hour"
             }
 
             return listOf<View>(layoutMessages)

@@ -81,11 +81,11 @@ class AndesMessage : FrameLayout {
         throw IllegalStateException("Constructor without parameters in Andes Message is not allowed. You must provide some attributes.")
     }
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context) {
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         initAttrs(attrs)
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs) {
         initAttrs(attrs)
     }
 
@@ -222,7 +222,7 @@ class AndesMessage : FrameLayout {
 
     companion object {
         private val HIERARCHY_DEFAULT = AndesMessageHierarchy.LOUD
-        private val STATE_DEFAULT = AndesMessageState.HIGHLIGHT
+        private val STATE_DEFAULT = AndesMessageState.NEUTRAL
         private val TITLE_DEFAULT = null
         private const val IS_DISMISSIBLE_DEFAULT = false
     }

@@ -1,3 +1,11 @@
+# v1.2.1
+# Fixed
+- An AndesMessage couldn't be found by its id due to a missing param in the constructor super() call.
+- Renamed `Highlight` state to `Neutral`.
+
+# Added
+- Enabled animateLayoutChanges() flag.
+
 # v1.2.0
 # Added
 - Allows changes of state, hierarchy and dismiss in runtime.
