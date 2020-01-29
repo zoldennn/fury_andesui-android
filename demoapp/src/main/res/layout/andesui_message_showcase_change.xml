@@ -52,7 +52,7 @@
             android:id="@+id/title_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title text"
+            android:hint="@string/change_text"
 
             />
 
@@ -60,7 +60,7 @@
             android:id="@+id/body_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Body text"
+            android:hint="@string/change_body"
             />
 
         <com.mercadolibre.android.andesui.button.AndesButton

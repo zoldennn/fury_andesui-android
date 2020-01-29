@@ -39,6 +39,8 @@
     <string name="andes_message_demoapp">Andes Message</string>
     <string name="dismissable">Dismissable</string>
     <string name="andes_message_showcase_change">Update</string>
+    <string name="change_text">Title text</string>
+    <string name="change_body">Body text</string>
 
     <string-array name="state_spinner">
         <item>Highlight</item>
