@@ -8,8 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ScrollView
+import android.widget.*
 import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
@@ -29,15 +28,11 @@ class MessageShowcaseActivity : AppCompatActivity() {
 
         val adapter = viewPager.adapter as AndesShowcasePagerAdapter
         addMessage(adapter.views[0])
+        addMessage(adapter.views[1])
     }
 
     private fun addMessage(container: View) {
-        //TODO Create a Message view
-
-        val linearLoud = container.findViewById<LinearLayout>(R.id.andes_loud_container)
-
-        //TODO Add messages to the linear layout
-        //linearLoud.addView(andesMessage)
+        val linearLoud = container.findViewById<LinearLayout>(R.id.andesui_message_container)
     }
 
     class AndesShowcasePagerAdapter(private val context: Context) : PagerAdapter() {
@@ -66,6 +61,7 @@ class MessageShowcaseActivity : AppCompatActivity() {
         private fun initViews(): List<View> {
             val inflater = LayoutInflater.from(context)
             val layoutMessages = inflater.inflate(R.layout.andesui_message_showcase, null, false) as ScrollView
+            val layoutMessagesChange = inflater.inflate(R.layout.andesui_message_showcase_change, null, false) as ScrollView
             val button = layoutMessages.findViewById<AndesButton>(R.id.button)
 
             button.setOnClickListener {
@@ -77,7 +73,65 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 message.body = "cambie mi body"
             }
 
-            return listOf<View>(layoutMessages)
+            val hierarchySpinner: Spinner = layoutMessagesChange.findViewById(R.id.hierarchy_spinner)
+            ArrayAdapter.createFromResource(
+                    context,
+                    R.array.hierarchy_spinner,
+                    android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                hierarchySpinner.adapter = adapter
+            }
+
+            val stateSpinner: Spinner = layoutMessagesChange.findViewById(R.id.state_spinner)
+            ArrayAdapter.createFromResource(
+                    context,
+                    R.array.state_spinner,
+                    android.R.layout.simple_spinner_item
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                stateSpinner.adapter = adapter
+            }
+
+            val dismissableCheckbox = layoutMessagesChange.findViewById<CheckBox>(R.id.dismissable_checkbox)
+
+            val bodyText = layoutMessagesChange.findViewById<EditText>(R.id.body_text)
+
+            val titleText = layoutMessagesChange.findViewById<EditText>(R.id.title_text)
+
+
+            val changeButton = layoutMessagesChange.findViewById<AndesButton>(R.id.change_button)
+            val changeMessage = (layoutMessagesChange.getChildAt(0) as LinearLayout).getChildAt(1) as AndesMessage
+
+            changeButton.setOnClickListener {
+
+                changeMessage.isDismissable = dismissableCheckbox.isChecked
+                changeMessage.title = titleText.text.toString()
+                if (bodyText.text.toString() == "") {
+                    Toast.makeText(context, "Body cannot be empty", Toast.LENGTH_SHORT).show()
+                }
+                else {
+                    changeMessage.body = bodyText.text.toString()
+                }
+
+                when(stateSpinner.selectedItem.toString()){
+                    "Highlight" -> changeMessage.state = AndesMessageState.HIGHLIGHT
+                    "Success" -> changeMessage.state = AndesMessageState.SUCCESS
+                    "Warning" -> changeMessage.state = AndesMessageState.WARNING
+                    "Error" -> changeMessage.state = AndesMessageState.ERROR
+                }
+
+                when(hierarchySpinner.selectedItem.toString()){
+                    "Loud" -> changeMessage.hierarchy = AndesMessageHierarchy.LOUD
+                    "Quiet" -> changeMessage.hierarchy = AndesMessageHierarchy.QUIET
+                }
+
+            }
+
+
+
+
+        return listOf<View>(layoutMessages, layoutMessagesChange)
         }
     }
 }
