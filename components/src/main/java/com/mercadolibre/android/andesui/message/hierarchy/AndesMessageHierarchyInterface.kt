@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import com.mercadolibre.android.andesui.R
+import com.mercadolibre.android.andesui.button.hierarchy.BackgroundColorConfigMessage
 import com.mercadolibre.android.andesui.message.AndesMessage
 import com.mercadolibre.android.andesui.message.state.AndesMessageStateInterface
 import com.mercadolibre.android.andesui.typeface.getFontOrDefault
@@ -87,6 +88,19 @@ internal sealed class AndesMessageHierarchyInterface {
      * @return the background color that the icon will have.
      */
     abstract fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface): Int?
+
+    fun primaryActionBackgroundColor(context: Context, state: AndesMessageStateInterface) = BackgroundColorConfigMessage(iconBackgroundColor(context, state)!!, iconBackgroundColor(context, state)!!,
+            iconBackgroundColor(context, state)!!,iconBackgroundColor(context, state)!!, iconBackgroundColor(context, state)!!, iconBackgroundColor(context, state)!!)
+
+    fun primaryActionTextColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_white)
+
+    fun secondaryActionBackgroundColor(context: Context, state: AndesMessageStateInterface) = BackgroundColorConfigMessage(backgroundColor(context, state),backgroundColor(context, state), backgroundColor(context, state),
+            backgroundColor(context, state), backgroundColor(context, state), backgroundColor(context, state))
+
+    abstract fun secondaryActionTextColor(context: Context, state: AndesMessageStateInterface) : Int
+
+
+
 }
 
 internal object AndesLoudMessageHierarchy : AndesMessageHierarchyInterface() {
@@ -95,6 +109,7 @@ internal object AndesLoudMessageHierarchy : AndesMessageHierarchyInterface() {
     override fun textColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_loud_text)
     override fun dismissableIconColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_loud_dismissable)
     override fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface) = state.secondaryColor(context)
+    override fun secondaryActionTextColor(context: Context, state: AndesMessageStateInterface): Int = ContextCompat.getColor(context, R.color.andesui_white)
 }
 
 internal object AndesQuietMessageHierarchy : AndesMessageHierarchyInterface() {
@@ -103,4 +118,5 @@ internal object AndesQuietMessageHierarchy : AndesMessageHierarchyInterface() {
     override fun textColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_text) //TODO Check
     override fun dismissableIconColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_dismissable)
     override fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface) = state.primaryColor(context)
+    override fun secondaryActionTextColor(context: Context, state: AndesMessageStateInterface): Int = iconBackgroundColor(context, state)
 }

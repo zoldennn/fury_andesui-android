@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.mercadolibre.android.andesui.R
+import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.message.factory.AndesMessageAttrs
 import com.mercadolibre.android.andesui.message.factory.AndesMessageAttrsParser
 import com.mercadolibre.android.andesui.message.factory.AndesMessageConfiguration
@@ -75,6 +76,9 @@ class AndesMessage : FrameLayout {
     private lateinit var dismissableComponent: ImageView
     private lateinit var pipeComponent: View
     private lateinit var andesMessageAttrs: AndesMessageAttrs
+    private lateinit var primaryAction: AndesButton
+    private lateinit var secondaryAction : AndesButton
+
 
     @Suppress("unused")
     private constructor(context: Context) : super(context) {
@@ -137,6 +141,7 @@ class AndesMessage : FrameLayout {
         setupBackground(config)
         setupPipe(config)
         setupIcon(config)
+        setupButton(config)
     }
 
     /**
@@ -153,6 +158,8 @@ class AndesMessage : FrameLayout {
         iconComponent = container.findViewById(R.id.andesui_icon)
         dismissableComponent = container.findViewById(R.id.andesui_dismissable)
         pipeComponent = container.findViewById(R.id.andesui_pipe)
+        primaryAction = container.findViewById(R.id.andesui_primary_action)
+        secondaryAction = container.findViewById(R.id.andesui_secondary_action)
     }
 
     /**
@@ -215,6 +222,13 @@ class AndesMessage : FrameLayout {
         } else {
             dismissableComponent.visibility = View.GONE
         }
+    }
+
+    private fun setupButton(config: AndesMessageConfiguration){
+        primaryAction.changeBackgroundColor(config.primaryActionBackgroundColor)
+        primaryAction.changeTextColor(config.primaryActionTextColor)
+        secondaryAction.changeTextColor(config.secondaryActionTextColor)
+
     }
 
 

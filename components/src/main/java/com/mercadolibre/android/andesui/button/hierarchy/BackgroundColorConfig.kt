@@ -29,6 +29,15 @@ data class BackgroundColorConfig(
         @ColorRes val otherColor: Int?
 )
 
+data class BackgroundColorConfigMessage(
+        val enabledColor: Int,
+        val pressedColor: Int,
+        val focusedColor: Int,
+        val hoveredColor: Int,
+        val disabledColor: Int,
+        val otherColor: Int?
+)
+
 /**
  * Returns a [Drawable] ready to be used as the background of an [AndesButton]. Output is based on the received [colorConfig].
  *
@@ -59,6 +68,40 @@ internal fun getConfiguredBackground(context: Context, cornerRadius: Float, colo
     if (colorConfig.otherColor != null) {
         val otherShape = ShapeDrawable(buttonShape)
         otherShape.paint.color = ContextCompat.getColor(context, colorConfig.otherColor)
+    }
+
+    val colorState = StateListDrawable()
+    colorState.addState(intArrayOf(android.R.attr.state_pressed), pressedShape)
+    colorState.addState(intArrayOf(android.R.attr.state_enabled), enabledShape)
+    colorState.addState(intArrayOf(-android.R.attr.state_enabled), disabledShape)
+    colorState.addState(intArrayOf(android.R.attr.state_hovered), hoveredShape)
+    colorState.addState(intArrayOf(android.R.attr.state_focused), focusedShape)
+
+    return colorState
+}
+
+internal fun getConfiguredBackgroundMessage(context: Context, cornerRadius: Float, colorConfig: BackgroundColorConfigMessage): Drawable {
+    val contentOuterRadii = floatArrayOf(cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius)
+    val buttonShape = RoundRectShape(contentOuterRadii, null, null)
+
+    val pressedShape = ShapeDrawable(buttonShape)
+    pressedShape.paint.color = colorConfig.pressedColor
+
+    val enabledShape = ShapeDrawable(buttonShape)
+    enabledShape.paint.color = colorConfig.enabledColor
+
+    val disabledShape = ShapeDrawable(buttonShape)
+    disabledShape.paint.color =  colorConfig.disabledColor
+
+    val hoveredShape = ShapeDrawable(buttonShape)
+    hoveredShape.paint.color = colorConfig.hoveredColor
+
+    val focusedShape = ShapeDrawable(buttonShape)
+    focusedShape.paint.color = colorConfig.focusedColor
+
+    if (colorConfig.otherColor != null) {
+        val otherShape = ShapeDrawable(buttonShape)
+        otherShape.paint.color = colorConfig.otherColor
     }
 
     val colorState = StateListDrawable()
