@@ -27,7 +27,7 @@ internal sealed class AndesMessageStateInterface {
     fun iconBackgroundColor(context: Context) = secondaryColor(context)
 }
 
-internal object AndesHighlightMessageState : AndesMessageStateInterface() {
+internal object AndesNeutralMessageState : AndesMessageStateInterface() {
     override fun primaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_highlight_primary)
     override fun secondaryColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_highlight_primary_dark)
     override fun icon(context: Context, hierarchy: AndesMessageHierarchyInterface) = buildColoredCircularShapeWithIconDrawable(

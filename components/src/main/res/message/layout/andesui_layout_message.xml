@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardCornerRadius="6dp"
+    app:cardCornerRadius="@dimen/andesui_message_corner_radius"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/andesui_message_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
 
         <TextView
             android:id="@+id/andesui_title"
