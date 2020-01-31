@@ -2,11 +2,13 @@ package com.mercadolibre.android.andesui.message.hierarchy
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.ColorUtils
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.button.hierarchy.BackgroundColorConfigMessage
 import com.mercadolibre.android.andesui.message.AndesMessage
@@ -89,12 +91,12 @@ internal sealed class AndesMessageHierarchyInterface {
      */
     abstract fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface): Int?
 
-    fun primaryActionBackgroundColor(context: Context, state: AndesMessageStateInterface) = BackgroundColorConfigMessage(iconBackgroundColor(context, state)!!, iconBackgroundColor(context, state)!!,
+    fun primaryActionBackgroundColor(context: Context, state: AndesMessageStateInterface) = BackgroundColorConfigMessage(iconBackgroundColor(context, state)!!, ColorUtils.blendARGB(iconBackgroundColor(context, state)!!, Color.BLACK, 0.2f)!!,
             iconBackgroundColor(context, state)!!,iconBackgroundColor(context, state)!!, iconBackgroundColor(context, state)!!, iconBackgroundColor(context, state)!!)
 
     fun primaryActionTextColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_white)
 
-    fun secondaryActionBackgroundColor(context: Context, state: AndesMessageStateInterface) = BackgroundColorConfigMessage(backgroundColor(context, state),backgroundColor(context, state), backgroundColor(context, state),
+    fun secondaryActionBackgroundColor(context: Context, state: AndesMessageStateInterface) = BackgroundColorConfigMessage(ContextCompat.getColor(context, R.color.andesui_bu_transparent_idle), ColorUtils.blendARGB(ContextCompat.getColor(context, R.color.andesui_bu_transparent_idle), Color.BLACK, 0.2f), backgroundColor(context, state),
             backgroundColor(context, state), backgroundColor(context, state), backgroundColor(context, state))
 
     abstract fun secondaryActionTextColor(context: Context, state: AndesMessageStateInterface) : Int

@@ -227,6 +227,7 @@ class AndesMessage : FrameLayout {
     private fun setupButton(config: AndesMessageConfiguration){
         primaryAction.changeBackgroundColor(config.primaryActionBackgroundColor)
         primaryAction.changeTextColor(config.primaryActionTextColor)
+        secondaryAction.changeBackgroundColor(config.secondaryActionBackgroundColor)
         secondaryAction.changeTextColor(config.secondaryActionTextColor)
 
     }
