@@ -98,7 +98,7 @@ class MessageShowcaseActivity : AppCompatActivity() {
 
 
             val changeButton = layoutMessagesChange.findViewById<AndesButton>(R.id.change_button)
-            val changeMessage = (layoutMessagesChange.getChildAt(0) as LinearLayout).getChildAt(1) as AndesMessage
+            val changeMessage = layoutMessagesChange.findViewById<AndesMessage>(R.id.message)
 
             changeButton.setOnClickListener {
 
@@ -123,32 +123,26 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 }
 
 
-                if (primaryActionText.text.toString() != ""){
-                    changeMessage.setupPrimaryAction("Primary action", object : View.OnClickListener {
-                        override fun onClick(v: View?) {
-                            Toast.makeText(context, "Primary onClick", Toast.LENGTH_SHORT).show()
-
-                        }
+                if (primaryActionText.text.toString() != "") {
+                    changeMessage.setupPrimaryAction(primaryActionText.text.toString(), View.OnClickListener {
+                        Toast.makeText(context, "Primary onClick", Toast.LENGTH_SHORT).show()
                     })
-                }
-                else {
+                } else {
                     changeMessage.hidePrimaryAction()
                 }
 
                 if (secondaryActionText.text.toString() != "") {
-                    if (primaryActionText.text.toString() != "") {
-                        changeMessage.setupSecondaryAction("Secondary action", object : View.OnClickListener {
-                            override fun onClick(v: View?) {
+                    when {
+                        primaryActionText.text.toString() != "" -> {
+                            changeMessage.setupSecondaryAction(secondaryActionText.text.toString(), View.OnClickListener {
                                 Toast.makeText(context, "Secondary onClick", Toast.LENGTH_SHORT).show()
-
-                            }
-                        })
+                            })
+                        }
+                        else -> {
+                            Toast.makeText(context, "Cannot set a secondary action without a primary one", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    else{
-                        Toast.makeText(context, "Cannot set a secondary action without a primary one", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                else {
+                } else {
                     changeMessage.hideSecondaryAction()
                 }
             }
