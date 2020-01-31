@@ -1,5 +1,6 @@
 package com.mercadolibre.android.andesui.message
 
+import android.content.ComponentCallbacks
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
@@ -69,6 +70,18 @@ class AndesMessage : FrameLayout {
             setupDismissable(createConfig())
         }
 
+    private var primatyActionText: String
+        get() = primaryAction.textComponent.text.toString()
+        set(value) {
+            primaryAction.textComponent.text = value
+        }
+
+    private var secondaryActionText: String
+        get() = secondaryAction.textComponent.text.toString()
+        set(value) {
+            secondaryAction.textComponent.text = value
+        }
+
     private lateinit var messageContainer: ConstraintLayout
     private lateinit var titleComponent: TextView
     private lateinit var bodyComponent: TextView
@@ -77,7 +90,7 @@ class AndesMessage : FrameLayout {
     private lateinit var pipeComponent: View
     private lateinit var andesMessageAttrs: AndesMessageAttrs
     private lateinit var primaryAction: AndesButton
-    private lateinit var secondaryAction : AndesButton
+    private lateinit var secondaryAction: AndesButton
 
 
     @Suppress("unused")
@@ -224,14 +237,29 @@ class AndesMessage : FrameLayout {
         }
     }
 
-    private fun setupButton(config: AndesMessageConfiguration){
+    private fun setupButton(config: AndesMessageConfiguration) {
         primaryAction.changeBackgroundColor(config.primaryActionBackgroundColor)
         primaryAction.changeTextColor(config.primaryActionTextColor)
         secondaryAction.changeBackgroundColor(config.secondaryActionBackgroundColor)
         secondaryAction.changeTextColor(config.secondaryActionTextColor)
-
     }
 
+    fun setupPrimaryAction(text : String, onClickListener: OnClickListener){
+        primaryAction.visibility = View.VISIBLE
+        primatyActionText = text
+        primaryAction.setOnClickListener(onClickListener)
+    }
+
+    fun setupSecondaryAction(text : String, onClickListener: OnClickListener){
+        if (primaryAction.visibility == View.VISIBLE) {
+            secondaryAction.visibility = View.VISIBLE
+            secondaryActionText = text
+            secondaryAction.setOnClickListener(onClickListener)
+        }
+        else {
+            throw IllegalAccessException("Cannot initialize a secondary action without a primary one")
+        }
+    }
 
     private fun createConfig() = AndesMessageConfigurationFactory.create(context, andesMessageAttrs)
 

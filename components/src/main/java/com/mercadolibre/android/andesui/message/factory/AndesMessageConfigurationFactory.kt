@@ -55,10 +55,10 @@ internal object AndesMessageConfigurationFactory {
                     dismissableIconColor = resolveDismissableIconColor(andesMessageHierarchy.hierarchy, context),
                     primaryActionText = null,
                     secondaryActionText = null,
-                    primaryActionBackgroundColor = resolvePrimaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageState.state, context),
+                    primaryActionBackgroundColor = resolvePrimaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context),
                     primaryActionTextColor = resolvePrimaryActionTextColor(andesMessageHierarchy.hierarchy, context),
-                    secondaryActionBackgroundColor = resolveSecondaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageState.state, context),
-                    secondaryActionTextColor = resolveSecondaryActionTextColor(andesMessageHierarchy.hierarchy, andesMessageState.state, context)
+                    secondaryActionBackgroundColor = resolveSecondaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context),
+                    secondaryActionTextColor = resolveSecondaryActionTextColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context)
             )
         }
     }

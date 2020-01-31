@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
+import android.widget.*
 import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
@@ -108,10 +108,10 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 }
 
                 when(stateSpinner.selectedItem.toString()){
-                    "Highlight" -> changeMessage.state = AndesMessageState.HIGHLIGHT
-                    "Success" -> changeMessage.state = AndesMessageState.SUCCESS
-                    "Warning" -> changeMessage.state = AndesMessageState.WARNING
-                    "Error" -> changeMessage.state = AndesMessageState.ERROR
+                    "Neutral" -> changeMessage.type = AndesMessageType.NEUTRAL
+                    "Success" -> changeMessage.type = AndesMessageType.SUCCESS
+                    "Warning" -> changeMessage.type = AndesMessageType.WARNING
+                    "Error" -> changeMessage.type = AndesMessageType.ERROR
                 }
 
                 when(hierarchySpinner.selectedItem.toString()){
@@ -119,7 +119,22 @@ class MessageShowcaseActivity : AppCompatActivity() {
                     "Quiet" -> changeMessage.hierarchy = AndesMessageHierarchy.QUIET
                 }
 
+                changeMessage.setupPrimaryAction("Primary action", object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+                        Toast.makeText(context, "Test onClick", Toast.LENGTH_SHORT).show()
+
+                    }
+                })
+
+                changeMessage.setupSecondaryAction("Secondary action", object : View.OnClickListener {
+                    override fun onClick(v: View?) {
+                        Toast.makeText(context, "Test onClick", Toast.LENGTH_SHORT).show()
+
+                    }
+                })
+
             }
+
 
 
 

@@ -43,7 +43,7 @@
     <string name="change_body">Body text</string>
 
     <string-array name="state_spinner">
-        <item>Highlight</item>
+        <item>Neutral</item>
         <item>Success</item>
         <item>Warning</item>
         <item>Error</item>
