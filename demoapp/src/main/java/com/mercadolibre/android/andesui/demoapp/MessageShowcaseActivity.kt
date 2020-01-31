@@ -145,6 +145,8 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 } else {
                     changeMessage.hideSecondaryAction()
                 }
+
+                 changeMessage.visibility = View.VISIBLE
             }
             return listOf<View>(layoutMessages, layoutMessagesChange)
         }
