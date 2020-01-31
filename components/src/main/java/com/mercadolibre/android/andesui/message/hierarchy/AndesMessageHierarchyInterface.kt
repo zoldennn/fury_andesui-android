@@ -2,12 +2,15 @@ package com.mercadolibre.android.andesui.message.hierarchy
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.ColorUtils
 import com.mercadolibre.android.andesui.R
+import com.mercadolibre.android.andesui.button.hierarchy.BackgroundColorConfigMessage
 import com.mercadolibre.android.andesui.message.AndesMessage
 import com.mercadolibre.android.andesui.message.state.AndesMessageTypeInterface
 import com.mercadolibre.android.andesui.typeface.getFontOrDefault
@@ -88,7 +91,7 @@ internal sealed class AndesMessageHierarchyInterface {
      */
     abstract fun iconBackgroundColor(context: Context, type: AndesMessageTypeInterface): Int?
 
-    fun primaryActionBackgroundColor(context: Context, type: AndesMessageTypeInterface) = BackgroundColorConfigMessage(iconBackgroundColor(context, type)!!, ColorUtils.blendARGB(iconBackgroundColor(context, type)!!, Color.BLACK, 0.2f)!!,
+    fun primaryActionBackgroundColor(context: Context, type: AndesMessageTypeInterface) = BackgroundColorConfigMessage(iconBackgroundColor(context, type)!!, ColorUtils.blendARGB(iconBackgroundColor(context, type)!!, Color.BLACK, 0.2f),
             iconBackgroundColor(context, type)!!,iconBackgroundColor(context, type)!!, iconBackgroundColor(context, type)!!, iconBackgroundColor(context, type)!!)
 
     fun primaryActionTextColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_white)

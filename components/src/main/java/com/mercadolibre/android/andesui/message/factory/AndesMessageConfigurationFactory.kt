@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import com.mercadolibre.android.andesui.R
-import com.mercadolibre.android.andesui.button.hierarchy.BackgroundColorConfig
 import com.mercadolibre.android.andesui.button.hierarchy.BackgroundColorConfigMessage
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchyInterface
 import com.mercadolibre.android.andesui.message.state.AndesMessageTypeInterface
@@ -27,11 +26,11 @@ internal data class AndesMessageConfiguration(
         val dismissableIconColor: Int?,
         val primaryActionText: String?,
         val secondaryActionText: String?,
-        val primaryActionBackgroundColor : BackgroundColorConfigMessage,
+        val primaryActionBackgroundColor: BackgroundColorConfigMessage,
         val primaryActionTextColor: Int,
         val secondaryActionBackgroundColor: BackgroundColorConfigMessage,
         val secondaryActionTextColor: Int
-        )
+)
 
 internal object AndesMessageConfigurationFactory {
 
@@ -55,10 +54,10 @@ internal object AndesMessageConfigurationFactory {
                     dismissableIconColor = resolveDismissableIconColor(andesMessageHierarchy.hierarchy, context),
                     primaryActionText = null,
                     secondaryActionText = null,
-                    primaryActionBackgroundColor = resolvePrimaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageState.state, context),
+                    primaryActionBackgroundColor = resolvePrimaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context),
                     primaryActionTextColor = resolvePrimaryActionTextColor(andesMessageHierarchy.hierarchy, context),
-                    secondaryActionBackgroundColor = resolveSecondaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageState.state, context),
-                    secondaryActionTextColor = resolveSecondaryActionTextColor(andesMessageHierarchy.hierarchy, andesMessageState.state, context)
+                    secondaryActionBackgroundColor = resolveSecondaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context),
+                    secondaryActionTextColor = resolveSecondaryActionTextColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context)
             )
         }
     }
@@ -75,9 +74,9 @@ internal object AndesMessageConfigurationFactory {
     private fun resolveIcon(type: AndesMessageTypeInterface, hierarchy: AndesMessageHierarchyInterface, context: Context) = type.icon(context, hierarchy)
     private fun resolveDismissableIcon(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.dismissableIcon(hierarchy, context)
     private fun resolveDismissableIconColor(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.dismissableIconColor(context)
-    private fun resolvePrimaryActionBackgroundColor(hierarchy: AndesMessageHierarchyInterface, state: AndesMessageStateInterface, context: Context) = hierarchy.primaryActionBackgroundColor(context, state)
+    private fun resolvePrimaryActionBackgroundColor(hierarchy: AndesMessageHierarchyInterface, state: AndesMessageTypeInterface, context: Context) = hierarchy.primaryActionBackgroundColor(context, state)
     private fun resolvePrimaryActionTextColor(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.primaryActionTextColor(context)
-    private fun resolveSecondaryActionBackgroundColor(hierarchy: AndesMessageHierarchyInterface, state: AndesMessageStateInterface, context: Context) = hierarchy.secondaryActionBackgroundColor(context, state)
-    private fun resolveSecondaryActionTextColor(hierarchy: AndesMessageHierarchyInterface, state: AndesMessageStateInterface, context: Context) = hierarchy.secondaryActionTextColor(context, state)
+    private fun resolveSecondaryActionBackgroundColor(hierarchy: AndesMessageHierarchyInterface, state: AndesMessageTypeInterface, context: Context) = hierarchy.secondaryActionBackgroundColor(context, state)
+    private fun resolveSecondaryActionTextColor(hierarchy: AndesMessageHierarchyInterface, state: AndesMessageTypeInterface, context: Context) = hierarchy.secondaryActionTextColor(context, state)
 
 }

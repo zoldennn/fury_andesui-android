@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
+import android.widget.*
 import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
@@ -84,7 +84,7 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 hierarchySpinner.adapter = adapter
             }
 
-            val typeSpinner: Spinner = layoutMessagesChange.findViewById(R.id.state_spinner)
+            val typeSpinner: Spinner = layoutMessagesChange.findViewById(R.id.type_spinner)
             ArrayAdapter.createFromResource(
                     context,
                     R.array.state_spinner,
@@ -116,7 +116,7 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 }
 
                 when(typeSpinner.selectedItem.toString()){
-                    "Highlight" -> changeMessage.type = AndesMessagetype.HIGHLIGHT
+                    "Highlight" -> changeMessage.type = AndesMessageType.NEUTRAL
                     "Success" -> changeMessage.type = AndesMessageType.SUCCESS
                     "Warning" -> changeMessage.type = AndesMessageType.WARNING
                     "Error" -> changeMessage.type = AndesMessageType.ERROR
