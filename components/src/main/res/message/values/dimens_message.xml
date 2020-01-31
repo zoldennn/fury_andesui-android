@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="andesui_message_corner_radius">0dp</dimen>
+    <dimen name="andesui_message_corner_radius">6dp</dimen>
     <dimen name="andesui_message_pipe_corner_radius">0dp</dimen>
     <dimen name="andesui_message_left_corner_radius">0dp</dimen>
 

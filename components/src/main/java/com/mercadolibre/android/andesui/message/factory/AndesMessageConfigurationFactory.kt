@@ -32,9 +32,9 @@ internal object AndesMessageConfigurationFactory {
     fun create(context: Context, andesMessageAttrs: AndesMessageAttrs): AndesMessageConfiguration {
         return with(andesMessageAttrs) {
             AndesMessageConfiguration(
-                    iconBackgroundColor = resolveIconBackgroundColor(andesMessageState.state, context),
-                    backgroundColor = resolveBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageState.state, context),
-                    pipeColor = resolvePipeColor(andesMessageState.state, context),
+                    iconBackgroundColor = resolveIconBackgroundColor(andesMessageType.state, context),
+                    backgroundColor = resolveBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context),
+                    pipeColor = resolvePipeColor(andesMessageType.state, context),
                     textColor = resolveTextColor(andesMessageHierarchy.hierarchy, context),
                     titleText = title,
                     bodyText = body,
@@ -43,7 +43,7 @@ internal object AndesMessageConfigurationFactory {
                     bodySize = resolveBodySize(context),
                     titleTypeface = resolveTitleTypeface(andesMessageHierarchy.hierarchy, context),
                     bodyTypeface = resolveBodyTypeface(andesMessageHierarchy.hierarchy, context),
-                    icon = resolveIcon(andesMessageState.state, andesMessageHierarchy.hierarchy, context),
+                    icon = resolveIcon(andesMessageType.state, andesMessageHierarchy.hierarchy, context),
                     isDismissable = isDismissable,
                     dismissableIcon = resolveDismissableIcon(andesMessageHierarchy.hierarchy, context),
                     dismissableIconColor = resolveDismissableIconColor(andesMessageHierarchy.hierarchy, context),
