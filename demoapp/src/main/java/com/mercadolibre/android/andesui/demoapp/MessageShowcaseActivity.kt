@@ -14,7 +14,7 @@ import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
 import com.mercadolibre.android.andesui.message.AndesMessage
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
-import com.mercadolibre.android.andesui.message.state.AndesMessageType
+import com.mercadolibre.android.andesui.message.type.AndesMessageType
 
 class MessageShowcaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

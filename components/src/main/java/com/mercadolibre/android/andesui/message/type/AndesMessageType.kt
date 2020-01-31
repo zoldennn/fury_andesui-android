@@ -1,4 +1,4 @@
-package com.mercadolibre.android.andesui.message.state
+package com.mercadolibre.android.andesui.message.type
 
 /**
  * Utility class that does two things: Defines the possible styles an [AndesMessage] can take because it's an enum, as you can see.
@@ -16,12 +16,12 @@ enum class AndesMessageType {
 
     internal val state get() = getAndesMessageHierarchy()
 
-    private fun getAndesMessageHierarchy(): AndesMessageStateInterface {
+    private fun getAndesMessageHierarchy(): AndesMessageTypeInterface {
         return when (this) {
-            NEUTRAL -> AndesNeutralMessageState
-            SUCCESS -> AndesSuccessMessageState
-            WARNING -> AndesWarningMessageState
-            ERROR -> AndesErrorMessageState
+            NEUTRAL -> AndesNeutralMessageType
+            SUCCESS -> AndesSuccessMessageType
+            WARNING -> AndesWarningMessageType
+            ERROR -> AndesErrorMessageType
         }
     }
 }
