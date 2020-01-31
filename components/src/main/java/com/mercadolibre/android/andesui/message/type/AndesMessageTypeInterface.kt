@@ -1,4 +1,4 @@
-package com.mercadolibre.android.andesui.message.state
+package com.mercadolibre.android.andesui.message.type
 
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable

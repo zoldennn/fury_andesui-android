@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
-import com.mercadolibre.android.andesui.message.state.AndesMessageType
+import com.mercadolibre.android.andesui.message.type.AndesMessageType
 
 /**
  * The data class that contains the public components of the message.
