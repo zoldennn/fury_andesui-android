@@ -10,9 +10,10 @@
         android:id="@+id/andesui_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/button_margin_vertical"
+        android:layout_marginRight="@dimen/button_margin_vertical"
         android:layout_marginBottom="@dimen/button_margin_vertical"
         app:andesButtonHierarchy="loud"
-        app:andesButtonLeftIconCustom="@drawable/andesui_icon"
         app:andesButtonSize="large"
         app:andesButtonText="@string/andes_button_showcase" />
 
@@ -20,8 +21,9 @@
         android:id="@+id/andesui_messages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/button_margin_vertical"
+        android:layout_marginRight="@dimen/button_margin_vertical"
         app:andesButtonHierarchy="loud"
-        app:andesButtonLeftIconCustom="@drawable/andesui_icon"
         app:andesButtonSize="large"
         app:andesButtonText="@string/andes_message_showcase" />
 

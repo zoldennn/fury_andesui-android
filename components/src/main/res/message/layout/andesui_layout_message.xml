@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardCornerRadius="6dp"
+    app:cardCornerRadius="@dimen/andesui_message_corner_radius"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true">
 

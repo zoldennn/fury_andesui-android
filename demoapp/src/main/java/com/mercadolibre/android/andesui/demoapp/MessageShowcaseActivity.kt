@@ -8,13 +8,13 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ScrollView
 import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
 import com.mercadolibre.android.andesui.message.AndesMessage
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
-import com.mercadolibre.android.andesui.message.state.AndesMessageState
+import com.mercadolibre.android.andesui.message.state.AndesMessageType
 
 class MessageShowcaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,14 +25,6 @@ class MessageShowcaseActivity : AppCompatActivity() {
         viewPager.adapter = AndesShowcasePagerAdapter(this)
         val indicator = findViewById<PageIndicator>(R.id.page_indicator)
         indicator.attach(viewPager)
-
-        val adapter = viewPager.adapter as AndesShowcasePagerAdapter
-        addMessage(adapter.views[0])
-        addMessage(adapter.views[1])
-    }
-
-    private fun addMessage(container: View) {
-        val linearLoud = container.findViewById<LinearLayout>(R.id.andesui_message_container)
     }
 
     class AndesShowcasePagerAdapter(private val context: Context) : PagerAdapter() {
@@ -65,12 +57,13 @@ class MessageShowcaseActivity : AppCompatActivity() {
             val button = layoutMessages.findViewById<AndesButton>(R.id.button)
 
             button.setOnClickListener {
-                val message = (layoutMessages.getChildAt(0) as LinearLayout).getChildAt(2) as AndesMessage
-                message.title =("Soy un titulo muy largo y hago muchas cosas como setear la hora " +  System.currentTimeMillis())
+                val message = layoutMessages.findViewById<AndesMessage>(R.id.message_loud)
+                val hour = System.currentTimeMillis().toString()
+                message.title = ("The current millis are: $hour")
                 message.hierarchy = (AndesMessageHierarchy.LOUD)
-                message.state = (AndesMessageState.SUCCESS)
+                message.type = (AndesMessageType.SUCCESS)
                 message.isDismissable = false
-                message.body = "cambie mi body"
+                message.body = "I insist. Current millis are: $hour"
             }
 
             val hierarchySpinner: Spinner = layoutMessagesChange.findViewById(R.id.hierarchy_spinner)
