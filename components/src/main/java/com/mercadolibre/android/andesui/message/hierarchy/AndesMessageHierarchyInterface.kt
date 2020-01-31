@@ -9,7 +9,7 @@ import android.support.annotation.ColorInt
 import android.support.v4.content.ContextCompat
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.message.AndesMessage
-import com.mercadolibre.android.andesui.message.state.AndesMessageTypeInterface
+import com.mercadolibre.android.andesui.message.type.AndesMessageTypeInterface
 import com.mercadolibre.android.andesui.typeface.getFontOrDefault
 import com.mercadolibre.android.andesui.utils.buildColoredBitmapDrawable
 

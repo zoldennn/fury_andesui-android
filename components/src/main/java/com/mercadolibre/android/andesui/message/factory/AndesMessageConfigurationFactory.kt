@@ -5,7 +5,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchyInterface
-import com.mercadolibre.android.andesui.message.state.AndesMessageTypeInterface
+import com.mercadolibre.android.andesui.message.type.AndesMessageTypeInterface
 
 internal data class AndesMessageConfiguration(
         val iconBackgroundColor: Int,
