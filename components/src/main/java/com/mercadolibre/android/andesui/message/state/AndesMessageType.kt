@@ -16,12 +16,12 @@ enum class AndesMessageType {
 
     internal val state get() = getAndesMessageHierarchy()
 
-    private fun getAndesMessageHierarchy(): AndesMessageStateInterface {
+    private fun getAndesMessageHierarchy(): AndesMessageTypeInterface {
         return when (this) {
-            NEUTRAL -> AndesNeutralMessageState
-            SUCCESS -> AndesSuccessMessageState
-            WARNING -> AndesWarningMessageState
-            ERROR -> AndesErrorMessageState
+            NEUTRAL -> AndesNeutralMessageType
+            SUCCESS -> AndesSuccessMessageType
+            WARNING -> AndesWarningMessageType
+            ERROR -> AndesErrorMessageType
         }
     }
 }

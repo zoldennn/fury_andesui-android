@@ -23,10 +23,10 @@ internal object AndesMessageAttrsParser {
     private const val ANDES_MESSAGE_HIERARCHY_LOUD = "1000"
     private const val ANDES_MESSAGE_HIERARCHY_QUIET = "1001"
 
-    private const val ANDES_MESSAGE_STATE_NEUTRAL = "2000"
-    private const val ANDES_MESSAGE_STATE_SUCCESS = "2001"
-    private const val ANDES_MESSAGE_STATE_WARNING = "2002"
-    private const val ANDES_MESSAGE_STATE_ERROR = "2003"
+    private const val ANDES_MESSAGE_TYPE_NEUTRAL = "2000"
+    private const val ANDES_MESSAGE_TYPE_SUCCESS = "2001"
+    private const val ANDES_MESSAGE_TYPE_WARNING = "2002"
+    private const val ANDES_MESSAGE_TYPE_ERROR = "2003"
 
     fun parse(context: Context, attr: AttributeSet?): AndesMessageAttrs {
         val typedArray = context.obtainStyledAttributes(attr, R.styleable.AndesMessage)
@@ -38,10 +38,10 @@ internal object AndesMessageAttrsParser {
         }
 
         val state = when (typedArray.getString(R.styleable.AndesMessage_andesMessageType)) {
-            ANDES_MESSAGE_STATE_NEUTRAL -> AndesMessageType.NEUTRAL
-            ANDES_MESSAGE_STATE_SUCCESS -> AndesMessageType.SUCCESS
-            ANDES_MESSAGE_STATE_WARNING -> AndesMessageType.WARNING
-            ANDES_MESSAGE_STATE_ERROR -> AndesMessageType.ERROR
+            ANDES_MESSAGE_TYPE_NEUTRAL -> AndesMessageType.NEUTRAL
+            ANDES_MESSAGE_TYPE_SUCCESS -> AndesMessageType.SUCCESS
+            ANDES_MESSAGE_TYPE_WARNING -> AndesMessageType.WARNING
+            ANDES_MESSAGE_TYPE_ERROR -> AndesMessageType.ERROR
             else -> AndesMessageType.NEUTRAL
         }
 
