@@ -1,5 +1,5 @@
 <resources>
-    <string name="andesui_demoapp_app_name">Andes UI - Demo App</string>
+    <string name="andesui_demoapp_app_name">Andes UI</string>
     <string name="loud_large_button">Loud Large Button</string>
     <string name="loud_medium_button">Loud Medium Button</string>
     <string name="loud_small_button">Loud Small Button</string>

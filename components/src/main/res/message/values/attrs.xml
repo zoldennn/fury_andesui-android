@@ -6,8 +6,8 @@
             <enum name="quiet" value="1001" />
         </attr>
 
-        <attr name="andesMessageState">
-            <enum name="highlight" value="2000" />
+        <attr name="andesMessageType">
+            <enum name="neutral" value="2000" />
             <enum name="success" value="2001" />
             <enum name="warning" value="2002" />
             <enum name="error" value="2003" />

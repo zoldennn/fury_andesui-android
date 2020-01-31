@@ -8,13 +8,13 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ScrollView
 import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
 import com.mercadolibre.android.andesui.message.AndesMessage
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
-import com.mercadolibre.android.andesui.message.state.AndesMessageState
+import com.mercadolibre.android.andesui.message.state.AndesMessageType
 
 class MessageShowcaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,12 +65,13 @@ class MessageShowcaseActivity : AppCompatActivity() {
             val button = layoutMessages.findViewById<AndesButton>(R.id.button)
 
             button.setOnClickListener {
-                val message = (layoutMessages.getChildAt(0) as LinearLayout).getChildAt(2) as AndesMessage
-                message.title =("Soy un titulo muy largo y hago muchas cosas como setear la hora " +  System.currentTimeMillis())
+                val message = layoutMessages.findViewById<AndesMessage>(R.id.message_loud)
+                val hour = System.currentTimeMillis().toString()
+                message.title = ("The current millis are: $hour")
                 message.hierarchy = (AndesMessageHierarchy.LOUD)
-                message.state = (AndesMessageState.SUCCESS)
+                message.type = (AndesMessageType.SUCCESS)
                 message.isDismissable = false
-                message.body = "cambie mi body"
+                message.body = "I insist. Current millis are: $hour"
             }
 
             val hierarchySpinner: Spinner = layoutMessagesChange.findViewById(R.id.hierarchy_spinner)
@@ -83,14 +84,14 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 hierarchySpinner.adapter = adapter
             }
 
-            val stateSpinner: Spinner = layoutMessagesChange.findViewById(R.id.state_spinner)
+            val typeSpinner: Spinner = layoutMessagesChange.findViewById(R.id.state_spinner)
             ArrayAdapter.createFromResource(
                     context,
                     R.array.state_spinner,
                     android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                stateSpinner.adapter = adapter
+                typeSpinner.adapter = adapter
             }
 
             val dismissableCheckbox = layoutMessagesChange.findViewById<CheckBox>(R.id.dismissable_checkbox)
@@ -114,11 +115,11 @@ class MessageShowcaseActivity : AppCompatActivity() {
                     changeMessage.body = bodyText.text.toString()
                 }
 
-                when(stateSpinner.selectedItem.toString()){
-                    "Highlight" -> changeMessage.state = AndesMessageState.HIGHLIGHT
-                    "Success" -> changeMessage.state = AndesMessageState.SUCCESS
-                    "Warning" -> changeMessage.state = AndesMessageState.WARNING
-                    "Error" -> changeMessage.state = AndesMessageState.ERROR
+                when(typeSpinner.selectedItem.toString()){
+                    "Highlight" -> changeMessage.type = AndesMessagetype.HIGHLIGHT
+                    "Success" -> changeMessage.type = AndesMessageType.SUCCESS
+                    "Warning" -> changeMessage.type = AndesMessageType.WARNING
+                    "Error" -> changeMessage.type = AndesMessageType.ERROR
                 }
 
                 when(hierarchySpinner.selectedItem.toString()){

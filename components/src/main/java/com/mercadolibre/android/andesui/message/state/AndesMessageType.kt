@@ -8,20 +8,20 @@ package com.mercadolibre.android.andesui.message.state
  *
  * @property state Possible styles that an [AndesMessage] may take.
  */
-enum class AndesMessageState {
-    HIGHLIGHT,
+enum class AndesMessageType {
+    NEUTRAL,
     SUCCESS,
     WARNING,
     ERROR;
 
     internal val state get() = getAndesMessageHierarchy()
 
-    private fun getAndesMessageHierarchy(): AndesMessageStateInterface {
+    private fun getAndesMessageHierarchy(): AndesMessageTypeInterface {
         return when (this) {
-            HIGHLIGHT -> AndesHighlightMessageState
-            SUCCESS -> AndesSuccessMessageState
-            WARNING -> AndesWarningMessageState
-            ERROR -> AndesErrorMessageState
+            NEUTRAL -> AndesNeutralMessageType
+            SUCCESS -> AndesSuccessMessageType
+            WARNING -> AndesWarningMessageType
+            ERROR -> AndesErrorMessageType
         }
     }
 }
