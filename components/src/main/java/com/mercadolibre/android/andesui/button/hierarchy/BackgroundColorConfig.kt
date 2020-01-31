@@ -5,10 +5,12 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.StateListDrawable
 import android.graphics.drawable.shapes.RoundRectShape
+import android.graphics.drawable.shapes.Shape
 import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.button.AndesButton
+import com.mercadolibre.android.andesui.color.AndesColor
 
 /**
  * Useful class that holds all the possible colors for the [AndesButton] background.
@@ -29,13 +31,14 @@ data class BackgroundColorConfig(
         @ColorRes val otherColor: Int?
 )
 
-data class BackgroundColorConfigMessage(
-        val enabledColor: Int,
-        val pressedColor: Int,
-        val focusedColor: Int,
-        val hoveredColor: Int,
-        val disabledColor: Int,
-        val otherColor: Int?
+
+internal data class BackgroundColorConfigMessage(
+        val enabledColor: AndesColor,
+        val pressedColor: AndesColor,
+        val focusedColor: AndesColor,
+        val hoveredColor: AndesColor,
+        val disabledColor: AndesColor,
+        val otherColor: AndesColor?
 )
 
 /**
@@ -81,38 +84,21 @@ internal fun getConfiguredBackground(context: Context, cornerRadius: Float, colo
 }
 
 internal fun getConfiguredBackgroundMessage(context: Context, cornerRadius: Float, colorConfig: BackgroundColorConfigMessage): Drawable {
-    val contentOuterRadii = floatArrayOf(cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius)
-    val buttonShape = RoundRectShape(contentOuterRadii, null, null)
-
-    val pressedShape = ShapeDrawable(buttonShape)
-    pressedShape.paint.color = colorConfig.pressedColor
-
-    val enabledShape = ShapeDrawable(buttonShape)
-    enabledShape.paint.color = colorConfig.enabledColor
-
-    val disabledShape = ShapeDrawable(buttonShape)
-    disabledShape.paint.color =  colorConfig.disabledColor
-
-    val hoveredShape = ShapeDrawable(buttonShape)
-    hoveredShape.paint.color = colorConfig.hoveredColor
-
-    val focusedShape = ShapeDrawable(buttonShape)
-    focusedShape.paint.color = colorConfig.focusedColor
-
-    if (colorConfig.otherColor != null) {
-        val otherShape = ShapeDrawable(buttonShape)
-        otherShape.paint.color = colorConfig.otherColor
+    val buttonShape = RoundRectShape(getOuterRadii(cornerRadius), null, null)
+    return StateListDrawable().apply {
+        addState(intArrayOf(android.R.attr.state_pressed), createShapeDrawable(context, buttonShape, colorConfig.pressedColor))
+        addState(intArrayOf(android.R.attr.state_enabled), createShapeDrawable(context, buttonShape, colorConfig.enabledColor))
+        addState(intArrayOf(-android.R.attr.state_enabled), createShapeDrawable(context, buttonShape, colorConfig.disabledColor))
+        addState(intArrayOf(android.R.attr.state_hovered), createShapeDrawable(context, buttonShape, colorConfig.hoveredColor))
+        addState(intArrayOf(android.R.attr.state_focused), createShapeDrawable(context, buttonShape, colorConfig.focusedColor))
     }
-
-    val colorState = StateListDrawable()
-    colorState.addState(intArrayOf(android.R.attr.state_pressed), pressedShape)
-    colorState.addState(intArrayOf(android.R.attr.state_enabled), enabledShape)
-    colorState.addState(intArrayOf(-android.R.attr.state_enabled), disabledShape)
-    colorState.addState(intArrayOf(android.R.attr.state_hovered), hoveredShape)
-    colorState.addState(intArrayOf(android.R.attr.state_focused), focusedShape)
-
-    return colorState
 }
+
+private fun getOuterRadii(cornerRadius: Float) =
+        floatArrayOf(cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius, cornerRadius)
+
+private fun createShapeDrawable(context: Context, shape: Shape, color: AndesColor) =
+        ShapeDrawable(shape).apply { paint.color = color.colorInt(context) }
 
 /**
  * Returns the proper [BackgroundColorConfig] for the Loud Hierarchy button.

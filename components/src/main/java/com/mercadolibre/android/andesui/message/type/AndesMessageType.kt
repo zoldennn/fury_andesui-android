@@ -19,9 +19,9 @@ enum class AndesMessageType {
     private fun getAndesMessageHierarchy(): AndesMessageTypeInterface {
         return when (this) {
             NEUTRAL -> AndesNeutralMessageType
-            SUCCESS -> AndesSuccessMessageType
-            WARNING -> AndesWarningMessageType
-            ERROR -> AndesErrorMessageType
+            SUCCESS -> AndesSuccessMessageState
+            WARNING -> AndesWarningMessageState
+            ERROR -> AndesErrorMessageState
         }
     }
 }

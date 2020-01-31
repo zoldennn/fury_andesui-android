@@ -11,6 +11,7 @@ import android.graphics.drawable.LayerDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
+import com.mercadolibre.android.andesui.color.AndesColor
 
 /**
  * Receives a [BitmapDrawable] which will suffer some look overhauling that includes scaling and tinting based on received params such as size, color, etc.
@@ -43,14 +44,14 @@ internal fun buildScaledColoredBitmapDrawable(image: BitmapDrawable, context: Co
             }
 }
 
-internal fun buildColoredBitmapDrawable(image: BitmapDrawable, context: Context, color: Int? = null): BitmapDrawable {
+internal fun buildColoredBitmapDrawable(image: BitmapDrawable, context: Context, color: AndesColor? = null): BitmapDrawable {
     return BitmapDrawable(context.resources, image.bitmap)
             .apply {
-                color?.let { setColorFilter(it, PorterDuff.Mode.SRC_IN) }
+                color?.let { setColorFilter(it.colorInt(context), PorterDuff.Mode.SRC_IN) }
             }
 }
 
-internal fun buildColoredCircularShapeWithIconDrawable(image: BitmapDrawable, context: Context, iconColor: Int? = null, shapeColor: Int? = null, diameter: Int): Drawable {
+internal fun buildColoredCircularShapeWithIconDrawable(image: BitmapDrawable, context: Context, iconColor: AndesColor? = null, shapeColor: Int? = null, diameter: Int): Drawable {
     val icon = buildColoredBitmapDrawable(image, context, iconColor)
 
     val biggerCircle = ShapeDrawable(OvalShape())

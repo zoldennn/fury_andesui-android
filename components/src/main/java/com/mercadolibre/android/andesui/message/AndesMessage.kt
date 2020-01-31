@@ -1,7 +1,6 @@
 package com.mercadolibre.android.andesui.message
 
 import android.content.Context
-import android.os.Build
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.util.Log
@@ -192,13 +191,13 @@ class AndesMessage : FrameLayout {
      *
      */
     private fun setupTitleComponent(config: AndesMessageConfiguration) {
-        if (config.titleText == null || config.titleText == "") {
+        if (config.titleText?.isBlank() == true) {
             titleComponent.visibility = View.GONE
         } else {
             titleComponent.visibility = View.VISIBLE
             titleComponent.text = config.titleText
             titleComponent.setTextSize(TypedValue.COMPLEX_UNIT_PX, config.titleSize)
-            titleComponent.setTextColor(config.textColor)
+            titleComponent.setTextColor(config.textColor.colorInt(context))
             titleComponent.typeface = config.titleTypeface
         }
     }
@@ -210,17 +209,17 @@ class AndesMessage : FrameLayout {
     private fun setupBodyComponent(config: AndesMessageConfiguration) {
         bodyComponent.text = config.bodyText
         bodyComponent.setTextSize(TypedValue.COMPLEX_UNIT_PX, config.bodySize)
-        bodyComponent.setTextColor(config.textColor)
+        bodyComponent.setTextColor(config.textColor.colorInt(context))
         bodyComponent.typeface = config.bodyTypeface
 //        bodyComponent.lineHeight = config.lineHeight //FIXME Use TextViewCompat
     }
 
     private fun setupBackground(config: AndesMessageConfiguration) {
-        messageContainer.setBackgroundColor(config.backgroundColor)
+        messageContainer.setBackgroundColor(config.backgroundColor.colorInt(context))
     }
 
     private fun setupPipe(config: AndesMessageConfiguration) {
-        pipeComponent.setBackgroundColor(config.pipeColor)
+        pipeComponent.setBackgroundColor(config.pipeColor.colorInt(context))
     }
 
     private fun setupIcon(config: AndesMessageConfiguration) {
@@ -240,10 +239,12 @@ class AndesMessage : FrameLayout {
     }
 
     private fun setupButton(config: AndesMessageConfiguration) {
-        primaryAction.changeBackgroundColor(config.primaryActionBackgroundColor)
-        primaryAction.changeTextColor(config.primaryActionTextColor)
-        secondaryAction.changeBackgroundColor(config.secondaryActionBackgroundColor)
-        secondaryAction.changeTextColor(config.secondaryActionTextColor)
+        with(config) {
+            primaryAction.changeBackgroundColor(primaryActionBackgroundColor)
+            primaryAction.changeTextColor(primaryActionTextColor.colorInt(context))
+            secondaryAction.changeBackgroundColor(secondaryActionBackgroundColor)
+            secondaryAction.changeTextColor(secondaryActionTextColor.colorInt(context))
+        }
     }
 
     fun setupPrimaryAction(text: String, onClickListener: OnClickListener) {
@@ -274,7 +275,6 @@ class AndesMessage : FrameLayout {
         secondaryAction.visibility = View.GONE
 
     }
-
 
     private fun createConfig() = AndesMessageConfigurationFactory.create(context, andesMessageAttrs)
 

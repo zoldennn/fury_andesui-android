@@ -1,8 +1,6 @@
 package com.mercadolibre.android.andesui.button
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
@@ -16,7 +14,10 @@ import android.widget.TextView
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.button.factory.AndesButtonConfiguration
 import com.mercadolibre.android.andesui.button.factory.AndesButtonFactory
-import com.mercadolibre.android.andesui.button.hierarchy.*
+import com.mercadolibre.android.andesui.button.hierarchy.AndesButtonHierarchy
+import com.mercadolibre.android.andesui.button.hierarchy.AndesButtonIcon
+import com.mercadolibre.android.andesui.button.hierarchy.BackgroundColorConfigMessage
+import com.mercadolibre.android.andesui.button.hierarchy.getConfiguredBackgroundMessage
 import com.mercadolibre.android.andesui.button.size.AndesButtonSize
 
 
@@ -302,7 +303,7 @@ class AndesButton : ConstraintLayout {
         textComponent.setTextColor(color)
     }
 
-    fun changeBackgroundColor(backgroundColorConfig: BackgroundColorConfigMessage ){
+    internal fun changeBackgroundColor(backgroundColorConfig: BackgroundColorConfigMessage) {
         background = getConfiguredBackgroundMessage(context, context.resources.getDimension(R.dimen.andesui_button_border_radius_medium), backgroundColorConfig)
     }
 }
