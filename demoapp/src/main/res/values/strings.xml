@@ -41,6 +41,8 @@
     <string name="andes_message_showcase_change">Update</string>
     <string name="change_text">Title text</string>
     <string name="change_body">Body text</string>
+    <string name="change_primary">Primary action text</string>
+    <string name="change_secondary">Secondary action text</string>
 
     <string-array name="state_spinner">
         <item>Neutral</item>

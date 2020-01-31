@@ -1,3 +1,7 @@
+# v1.2.2
+# Fixed
+- Some Message Types were still called States.
+
 # v1.2.1
 # Fixed
 - An AndesMessage couldn't be found by its id due to a missing param in the constructor super() call.

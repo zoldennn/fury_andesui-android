@@ -12,7 +12,7 @@ import android.support.v4.graphics.ColorUtils
 import com.mercadolibre.android.andesui.R
 import com.mercadolibre.android.andesui.button.hierarchy.BackgroundColorConfigMessage
 import com.mercadolibre.android.andesui.message.AndesMessage
-import com.mercadolibre.android.andesui.message.state.AndesMessageStateInterface
+import com.mercadolibre.android.andesui.message.type.AndesMessageTypeInterface
 import com.mercadolibre.android.andesui.typeface.getFontOrDefault
 import com.mercadolibre.android.andesui.utils.buildColoredBitmapDrawable
 
@@ -31,12 +31,12 @@ internal sealed class AndesMessageHierarchyInterface {
      */
     abstract fun backgroundColor(context: Context): Int
 
-    abstract fun backgroundColor(context: Context, state: AndesMessageStateInterface): Int
+    abstract fun backgroundColor(context: Context, type: AndesMessageTypeInterface): Int
 
     /**
      * Returns a [ColorStateList] that contains the data for the text color.
-     * We are using [ColorStateList] because text color depends on the message state. E.g. text color for enabled state is different
-     * than for the disabled state.
+     * We are using [ColorStateList] because text color depends on the message type. E.g. text color for enabled type is different
+     * than for the disabled type.
      *
      * @param context needed for accessing some resources.
      * @return a [ColorStateList] that contains the data for the text color.
@@ -86,39 +86,38 @@ internal sealed class AndesMessageHierarchyInterface {
      * Returns the background color that the icon will have. It's the color of the container in which the icon will live.
      *
      * @param context needed for accessing some resources.
-     * @param state needed because the background color is intimately related to the state of the Message.
+     * @param type needed because the background color is intimately related to the type of the Message.
      * @return the background color that the icon will have.
      */
-    abstract fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface): Int?
+    abstract fun iconBackgroundColor(context: Context, type: AndesMessageTypeInterface): Int?
 
-    fun primaryActionBackgroundColor(context: Context, state: AndesMessageStateInterface) = BackgroundColorConfigMessage(iconBackgroundColor(context, state)!!, ColorUtils.blendARGB(iconBackgroundColor(context, state)!!, Color.BLACK, 0.2f)!!,
-            iconBackgroundColor(context, state)!!,iconBackgroundColor(context, state)!!, iconBackgroundColor(context, state)!!, iconBackgroundColor(context, state)!!)
+    fun primaryActionBackgroundColor(context: Context, type: AndesMessageTypeInterface) = BackgroundColorConfigMessage(iconBackgroundColor(context, type)!!, ColorUtils.blendARGB(iconBackgroundColor(context, type)!!, Color.BLACK, 0.2f),
+            iconBackgroundColor(context, type)!!,iconBackgroundColor(context, type)!!, iconBackgroundColor(context, type)!!, iconBackgroundColor(context, type)!!)
 
     fun primaryActionTextColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_white)
 
-    fun secondaryActionBackgroundColor(context: Context, state: AndesMessageStateInterface) = BackgroundColorConfigMessage(ContextCompat.getColor(context, R.color.andesui_bu_transparent_idle), ColorUtils.blendARGB(ContextCompat.getColor(context, R.color.andesui_bu_transparent_idle), Color.BLACK, 0.2f), backgroundColor(context, state),
-            backgroundColor(context, state), backgroundColor(context, state), backgroundColor(context, state))
+    fun secondaryActionBackgroundColor(context: Context, type: AndesMessageTypeInterface) = BackgroundColorConfigMessage(ContextCompat.getColor(context, R.color.andesui_bu_transparent_idle), ColorUtils.blendARGB(ContextCompat.getColor(context, R.color.andesui_bu_transparent_idle), Color.BLACK, 0.2f), backgroundColor(context, type),
+            backgroundColor(context, type), backgroundColor(context, type), backgroundColor(context, type))
 
-    abstract fun secondaryActionTextColor(context: Context, state: AndesMessageStateInterface) : Int
-
+    abstract fun secondaryActionTextColor(context: Context, type: AndesMessageTypeInterface) : Int
 
 
 }
 
 internal object AndesLoudMessageHierarchy : AndesMessageHierarchyInterface() {
-    override fun backgroundColor(context: Context) = throw IllegalStateException("Loud message cannot be colored without an AndesMessageState")
-    override fun backgroundColor(context: Context, state: AndesMessageStateInterface) = state.primaryColor(context)
+    override fun backgroundColor(context: Context) = throw IllegalStateException("Loud message cannot be colored without an AndesMessageType")
+    override fun backgroundColor(context: Context, type: AndesMessageTypeInterface) = type.primaryColor(context)
     override fun textColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_loud_text)
     override fun dismissableIconColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_loud_dismissable)
-    override fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface) = state.secondaryColor(context)
-    override fun secondaryActionTextColor(context: Context, state: AndesMessageStateInterface): Int = ContextCompat.getColor(context, R.color.andesui_white)
+    override fun iconBackgroundColor(context: Context, type: AndesMessageTypeInterface) = type.secondaryColor(context)
+    override fun secondaryActionTextColor(context: Context, type: AndesMessageTypeInterface): Int = ContextCompat.getColor(context, R.color.andesui_white)
 }
 
 internal object AndesQuietMessageHierarchy : AndesMessageHierarchyInterface() {
     override fun backgroundColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_bg) //TODO Check
-    override fun backgroundColor(context: Context, state: AndesMessageStateInterface) = backgroundColor(context)
+    override fun backgroundColor(context: Context, type: AndesMessageTypeInterface) = backgroundColor(context)
     override fun textColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_text) //TODO Check
     override fun dismissableIconColor(context: Context) = ContextCompat.getColor(context, R.color.andesui_message_quiet_dismissable)
-    override fun iconBackgroundColor(context: Context, state: AndesMessageStateInterface) = state.primaryColor(context)
-    override fun secondaryActionTextColor(context: Context, state: AndesMessageStateInterface): Int = iconBackgroundColor(context, state)
+    override fun iconBackgroundColor(context: Context, type: AndesMessageTypeInterface) = type.primaryColor(context)
+    override fun secondaryActionTextColor(context: Context, type: AndesMessageTypeInterface): Int = iconBackgroundColor(context, type)
 }

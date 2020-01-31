@@ -14,7 +14,7 @@ import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
 import com.mercadolibre.android.andesui.message.AndesMessage
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchy
-import com.mercadolibre.android.andesui.message.state.AndesMessageType
+import com.mercadolibre.android.andesui.message.type.AndesMessageType
 
 class MessageShowcaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,14 +76,14 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 hierarchySpinner.adapter = adapter
             }
 
-            val stateSpinner: Spinner = layoutMessagesChange.findViewById(R.id.state_spinner)
+            val typeSpinner: Spinner = layoutMessagesChange.findViewById(R.id.type_spinner)
             ArrayAdapter.createFromResource(
                     context,
                     R.array.state_spinner,
                     android.R.layout.simple_spinner_item
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                stateSpinner.adapter = adapter
+                typeSpinner.adapter = adapter
             }
 
             val dismissableCheckbox = layoutMessagesChange.findViewById<CheckBox>(R.id.dismissable_checkbox)
@@ -91,6 +91,10 @@ class MessageShowcaseActivity : AppCompatActivity() {
             val bodyText = layoutMessagesChange.findViewById<EditText>(R.id.body_text)
 
             val titleText = layoutMessagesChange.findViewById<EditText>(R.id.title_text)
+
+            val primaryActionText = layoutMessagesChange.findViewById<EditText>(R.id.primary_action_text)
+
+            val secondaryActionText = layoutMessagesChange.findViewById<EditText>(R.id.secondary_action_text)
 
 
             val changeButton = layoutMessagesChange.findViewById<AndesButton>(R.id.change_button)
@@ -102,44 +106,53 @@ class MessageShowcaseActivity : AppCompatActivity() {
                 changeMessage.title = titleText.text.toString()
                 if (bodyText.text.toString() == "") {
                     Toast.makeText(context, "Body cannot be empty", Toast.LENGTH_SHORT).show()
-                }
-                else {
+                } else {
                     changeMessage.body = bodyText.text.toString()
                 }
 
-                when(stateSpinner.selectedItem.toString()){
-                    "Neutral" -> changeMessage.type = AndesMessageType.NEUTRAL
+                when (typeSpinner.selectedItem.toString()) {
+                    "Highlight" -> changeMessage.type = AndesMessageType.NEUTRAL
                     "Success" -> changeMessage.type = AndesMessageType.SUCCESS
                     "Warning" -> changeMessage.type = AndesMessageType.WARNING
                     "Error" -> changeMessage.type = AndesMessageType.ERROR
                 }
 
-                when(hierarchySpinner.selectedItem.toString()){
+                when (hierarchySpinner.selectedItem.toString()) {
                     "Loud" -> changeMessage.hierarchy = AndesMessageHierarchy.LOUD
                     "Quiet" -> changeMessage.hierarchy = AndesMessageHierarchy.QUIET
                 }
 
-                changeMessage.setupPrimaryAction("Primary action", object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-                        Toast.makeText(context, "Test onClick", Toast.LENGTH_SHORT).show()
 
+                if (primaryActionText.text.toString() != ""){
+                    changeMessage.setupPrimaryAction("Primary action", object : View.OnClickListener {
+                        override fun onClick(v: View?) {
+                            Toast.makeText(context, "Primary onClick", Toast.LENGTH_SHORT).show()
+
+                        }
+                    })
+                }
+                else {
+                    changeMessage.hidePrimaryAction()
+                }
+
+                if (secondaryActionText.text.toString() != "") {
+                    if (primaryActionText.text.toString() != "") {
+                        changeMessage.setupSecondaryAction("Secondary action", object : View.OnClickListener {
+                            override fun onClick(v: View?) {
+                                Toast.makeText(context, "Secondary onClick", Toast.LENGTH_SHORT).show()
+
+                            }
+                        })
                     }
-                })
-
-                changeMessage.setupSecondaryAction("Secondary action", object : View.OnClickListener {
-                    override fun onClick(v: View?) {
-                        Toast.makeText(context, "Test onClick", Toast.LENGTH_SHORT).show()
-
+                    else{
+                        Toast.makeText(context, "Cannot set a secondary action without a primary one", Toast.LENGTH_SHORT).show()
                     }
-                })
-
+                }
+                else {
+                    changeMessage.hideSecondaryAction()
+                }
             }
-
-
-
-
-
-        return listOf<View>(layoutMessages, layoutMessagesChange)
+            return listOf<View>(layoutMessages, layoutMessagesChange)
         }
     }
 }
