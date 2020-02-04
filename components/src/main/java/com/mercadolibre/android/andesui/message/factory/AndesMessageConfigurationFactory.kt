@@ -38,9 +38,9 @@ internal object AndesMessageConfigurationFactory {
     fun create(context: Context, andesMessageAttrs: AndesMessageAttrs): AndesMessageConfiguration {
         return with(andesMessageAttrs) {
             AndesMessageConfiguration(
-                    iconBackgroundColor = resolveIconBackgroundColor(andesMessageType.state),
-                    backgroundColor = resolveBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.state),
-                    pipeColor = resolvePipeColor(andesMessageType.state),
+                    iconBackgroundColor = resolveIconBackgroundColor(andesMessageType.type),
+                    backgroundColor = resolveBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.type),
+                    pipeColor = resolvePipeColor(andesMessageType.type),
                     textColor = resolveTextColor(andesMessageHierarchy.hierarchy),
                     titleText = title,
                     bodyText = body,
@@ -49,23 +49,23 @@ internal object AndesMessageConfigurationFactory {
                     bodySize = resolveBodySize(context),
                     titleTypeface = resolveTitleTypeface(andesMessageHierarchy.hierarchy, context),
                     bodyTypeface = resolveBodyTypeface(andesMessageHierarchy.hierarchy, context),
-                    icon = resolveIcon(andesMessageType.state, andesMessageHierarchy.hierarchy, context),
+                    icon = resolveIcon(andesMessageType.type, andesMessageHierarchy.hierarchy, context),
                     isDismissable = isDismissable,
                     dismissableIcon = resolveDismissableIcon(andesMessageHierarchy.hierarchy, context),
                     dismissableIconColor = resolveDismissableIconColor(andesMessageHierarchy.hierarchy),
                     primaryActionText = null,
                     secondaryActionText = null,
-                    primaryActionBackgroundColor = resolvePrimaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context),
+                    primaryActionBackgroundColor = resolvePrimaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.type, context),
                     primaryActionTextColor = resolvePrimaryActionTextColor(andesMessageHierarchy.hierarchy),
-                    secondaryActionBackgroundColor = resolveSecondaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context),
-                    secondaryActionTextColor = resolveSecondaryActionTextColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context)
+                    secondaryActionBackgroundColor = resolveSecondaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.type, context),
+                    secondaryActionTextColor = resolveSecondaryActionTextColor(andesMessageHierarchy.hierarchy, andesMessageType.type, context)
             )
         }
     }
 
-    private fun resolveIconBackgroundColor(state: AndesMessageTypeInterface) = state.iconBackgroundColor()
-    private fun resolveBackgroundColor(hierarchy: AndesMessageHierarchyInterface, state: AndesMessageTypeInterface) = hierarchy.backgroundColor(state)
-    private fun resolvePipeColor(state: AndesMessageTypeInterface) = state.pipeColor()
+    private fun resolveIconBackgroundColor(type: AndesMessageTypeInterface) = type.iconBackgroundColor()
+    private fun resolveBackgroundColor(hierarchy: AndesMessageHierarchyInterface, type: AndesMessageTypeInterface) = hierarchy.backgroundColor(type)
+    private fun resolvePipeColor(type: AndesMessageTypeInterface) = type.pipeColor()
     private fun resolveTextColor(hierarchy: AndesMessageHierarchyInterface) = hierarchy.textColor()
     private fun resolveTitleSize(context: Context) = context.resources.getDimension(R.dimen.andesui_message_title)
     private fun resolveBodySize(context: Context) = context.resources.getDimension(R.dimen.andesui_message_body)

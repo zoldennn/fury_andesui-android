@@ -8,7 +8,12 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.ScrollView
+import android.widget.Spinner
+import android.widget.Toast
 import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.demoapp.PageIndicator
 import com.mercadolibre.android.andesui.demoapp.R
@@ -148,7 +153,7 @@ class MessageShowcaseActivity : AppCompatActivity() {
 
                  changeMessage.visibility = View.VISIBLE
             }
-            return listOf<View>(layoutMessages, layoutMessagesChange)
+            return listOf<View>(layoutMessagesChange, layoutMessages)
         }
     }
 }

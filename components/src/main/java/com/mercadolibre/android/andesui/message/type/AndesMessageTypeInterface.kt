@@ -35,7 +35,7 @@ internal object AndesNeutralMessageType : AndesMessageTypeInterface() {
     )
 }
 
-internal object AndesSuccessMessageState : AndesMessageTypeInterface() {
+internal object AndesSuccessMessageType : AndesMessageTypeInterface() {
     override fun primaryColor() = AndesColor(R.color.andesui_message_success_primary)
     override fun secondaryColor() = AndesColor(R.color.andesui_message_success_primary_dark)
     override fun icon(context: Context, hierarchy: AndesMessageHierarchyInterface) = buildColoredCircularShapeWithIconDrawable(
@@ -47,7 +47,7 @@ internal object AndesSuccessMessageState : AndesMessageTypeInterface() {
     )
 }
 
-internal object AndesWarningMessageState : AndesMessageTypeInterface() {
+internal object AndesWarningMessageType : AndesMessageTypeInterface() {
     override fun primaryColor() = AndesColor(R.color.andesui_message_warning_primary)
     override fun secondaryColor() = AndesColor(R.color.andesui_message_warning_primary_dark)
     override fun icon(context: Context, hierarchy: AndesMessageHierarchyInterface) = buildColoredCircularShapeWithIconDrawable(
@@ -59,7 +59,7 @@ internal object AndesWarningMessageState : AndesMessageTypeInterface() {
     )
 }
 
-internal object AndesErrorMessageState : AndesMessageTypeInterface() {
+internal object AndesErrorMessageType : AndesMessageTypeInterface() {
     override fun primaryColor() = AndesColor(R.color.andesui_message_error_primary)
     override fun secondaryColor() = AndesColor(R.color.andesui_message_error_primary_dark)
     override fun icon(context: Context, hierarchy: AndesMessageHierarchyInterface) = buildColoredCircularShapeWithIconDrawable(

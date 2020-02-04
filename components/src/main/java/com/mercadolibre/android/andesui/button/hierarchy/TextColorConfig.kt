@@ -29,8 +29,8 @@ internal fun getConfiguredTextColor(context: Context, textColorConfig: TextColor
         intArrayOf(android.R.attr.state_enabled)    // Enabled
 ),
         intArrayOf(
-                ContextCompat.getColor(context, textColorConfig.disabledColor),     // The color for the Disabled state
-                ContextCompat.getColor(context, textColorConfig.enabledColor)        // The color for the Enabled state
+                ContextCompat.getColor(context, textColorConfig.disabledColor),     // The color for the Disabled type
+                ContextCompat.getColor(context, textColorConfig.enabledColor)        // The color for the Enabled type
         )
 )
 

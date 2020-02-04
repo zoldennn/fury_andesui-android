@@ -1,10 +1,11 @@
-# v1.2.3
-# Refactor
-- AndesColor created to wrap the use of primitives android color types.
-
 # v1.2.2
-# Fixed
+## Fixed
 - Some Message Types were still called States.
+## Added
+- Stale Bot GitHub config.
+- Buttons can have primary and secondary actions.
+## Refactor
+- AndesColor created to wrap the use of primitives android color types.
 
 # v1.2.1
 # Fixed

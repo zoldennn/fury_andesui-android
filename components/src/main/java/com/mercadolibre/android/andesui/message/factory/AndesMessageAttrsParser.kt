@@ -37,7 +37,7 @@ internal object AndesMessageAttrsParser {
             else -> AndesMessageHierarchy.LOUD
         }
 
-        val state = when (typedArray.getString(R.styleable.AndesMessage_andesMessageType)) {
+        val type = when (typedArray.getString(R.styleable.AndesMessage_andesMessageType)) {
             ANDES_MESSAGE_TYPE_NEUTRAL -> AndesMessageType.NEUTRAL
             ANDES_MESSAGE_TYPE_SUCCESS -> AndesMessageType.SUCCESS
             ANDES_MESSAGE_TYPE_WARNING -> AndesMessageType.WARNING
@@ -47,7 +47,7 @@ internal object AndesMessageAttrsParser {
 
         return AndesMessageAttrs(
                 andesMessageHierarchy = hierarchy,
-                andesMessageType = state,
+                andesMessageType = type,
                 body = typedArray.getString(R.styleable.AndesMessage_andesMessageBodyText) ?: throw IllegalArgumentException("Body is a mandatory parameter"),
                 title = typedArray.getString(R.styleable.AndesMessage_andesMessageTitleText),
                 isDismissable = typedArray.getBoolean(R.styleable.AndesMessage_andesMessageDismissable, false)

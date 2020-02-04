@@ -288,7 +288,7 @@ class AndesButton : ConstraintLayout {
     }
 
     /**
-     * Set the enabled state of this button and its children views.
+     * Set the enabled type of this button and its children views.
      *
      * @param enabled true if this view is enabled, false otherwise.
      */

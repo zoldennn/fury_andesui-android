@@ -71,7 +71,7 @@ class AndesMessage : FrameLayout {
             setupDismissable(createConfig())
         }
 
-    private var primatyActionText: String
+    private var primaryActionText: String
         get() = primaryAction.textComponent.text.toString()
         set(value) {
             primaryAction.textComponent.text = value
@@ -191,7 +191,7 @@ class AndesMessage : FrameLayout {
      *
      */
     private fun setupTitleComponent(config: AndesMessageConfiguration) {
-        if (config.titleText?.isBlank() == true) {
+        if (config.titleText == null || config.titleText.isEmpty()) {
             titleComponent.visibility = View.GONE
         } else {
             titleComponent.visibility = View.VISIBLE
@@ -239,17 +239,15 @@ class AndesMessage : FrameLayout {
     }
 
     private fun setupButton(config: AndesMessageConfiguration) {
-        with(config) {
-            primaryAction.changeBackgroundColor(primaryActionBackgroundColor)
-            primaryAction.changeTextColor(primaryActionTextColor.colorInt(context))
-            secondaryAction.changeBackgroundColor(secondaryActionBackgroundColor)
-            secondaryAction.changeTextColor(secondaryActionTextColor.colorInt(context))
-        }
+        primaryAction.changeBackgroundColor(config.primaryActionBackgroundColor)
+        primaryAction.changeTextColor(config.primaryActionTextColor.colorInt(context))
+        secondaryAction.changeBackgroundColor(config.secondaryActionBackgroundColor)
+        secondaryAction.changeTextColor(config.secondaryActionTextColor.colorInt(context))
     }
 
     fun setupPrimaryAction(text: String, onClickListener: OnClickListener) {
         primaryAction.visibility = View.VISIBLE
-        primatyActionText = text
+        primaryActionText = text
         primaryAction.setOnClickListener(onClickListener)
     }
 
@@ -273,7 +271,6 @@ class AndesMessage : FrameLayout {
 
     fun hideSecondaryAction(){
         secondaryAction.visibility = View.GONE
-
     }
 
     private fun createConfig() = AndesMessageConfigurationFactory.create(context, andesMessageAttrs)
