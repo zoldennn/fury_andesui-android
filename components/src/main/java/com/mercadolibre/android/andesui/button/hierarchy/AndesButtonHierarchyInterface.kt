@@ -28,8 +28,8 @@ internal sealed class AndesButtonHierarchyInterface {
 
     /**
      * Returns a [ColorStateList] that contains the data for the text color.
-     * We are using [ColorStateList] because text color depends on the button state. E.g. text color for enabled state is different
-     * than for the disabled state.
+     * We are using [ColorStateList] because text color depends on the button type. E.g. text color for enabled type is different
+     * than for the disabled type.
      *
      * @param context needed for accessing some resources.
      * @return a [ColorStateList] that contains the data for the text color.

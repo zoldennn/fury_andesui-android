@@ -6,7 +6,7 @@ package com.mercadolibre.android.andesui.message.type
  *
  * You ask me with, let's say 'QUIET', and then I'll give you a proper implementation of that style.
  *
- * @property state Possible styles that an [AndesMessage] may take.
+ * @property type Possible styles that an [AndesMessage] may take.
  */
 enum class AndesMessageType {
     NEUTRAL,
@@ -14,7 +14,7 @@ enum class AndesMessageType {
     WARNING,
     ERROR;
 
-    internal val state get() = getAndesMessageHierarchy()
+    internal val type get() = getAndesMessageHierarchy()
 
     private fun getAndesMessageHierarchy(): AndesMessageTypeInterface {
         return when (this) {

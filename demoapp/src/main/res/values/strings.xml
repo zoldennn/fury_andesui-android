@@ -37,4 +37,22 @@
     <string name="body_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
     <string name="title_text">Atención!</string>
     <string name="andes_message_demoapp">Andes Message</string>
+    <string name="dismissable">Dismissable</string>
+    <string name="andes_message_showcase_change">Update</string>
+    <string name="change_text">Title text</string>
+    <string name="change_body">Body text</string>
+    <string name="change_primary">Primary action text</string>
+    <string name="change_secondary">Secondary action text</string>
+
+    <string-array name="state_spinner">
+        <item>Neutral</item>
+        <item>Success</item>
+        <item>Warning</item>
+        <item>Error</item>
+    </string-array>
+
+    <string-array name="hierarchy_spinner">
+        <item>Loud</item>
+        <item>Quiet</item>
+    </string-array>
 </resources>

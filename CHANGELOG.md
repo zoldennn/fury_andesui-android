@@ -1,3 +1,7 @@
+# v1.2.3
+# Added
+- Buttons can have primary and secondary actions.
+
 # v1.2.2
 # Fixed
 - Some Message Types were still called States.

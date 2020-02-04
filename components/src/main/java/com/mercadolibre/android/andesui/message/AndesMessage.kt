@@ -3,13 +3,16 @@ package com.mercadolibre.android.andesui.message
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.mercadolibre.android.andesui.BuildConfig
 import com.mercadolibre.android.andesui.R
+import com.mercadolibre.android.andesui.button.AndesButton
 import com.mercadolibre.android.andesui.message.factory.AndesMessageAttrs
 import com.mercadolibre.android.andesui.message.factory.AndesMessageAttrsParser
 import com.mercadolibre.android.andesui.message.factory.AndesMessageConfiguration
@@ -68,6 +71,18 @@ class AndesMessage : FrameLayout {
             setupDismissable(createConfig())
         }
 
+    private var primaryActionText: String
+        get() = primaryAction.textComponent.text.toString()
+        set(value) {
+            primaryAction.textComponent.text = value
+        }
+
+    private var secondaryActionText: String
+        get() = secondaryAction.textComponent.text.toString()
+        set(value) {
+            secondaryAction.textComponent.text = value
+        }
+
     private lateinit var messageContainer: ConstraintLayout
     private lateinit var titleComponent: TextView
     private lateinit var bodyComponent: TextView
@@ -75,6 +90,9 @@ class AndesMessage : FrameLayout {
     private lateinit var dismissableComponent: ImageView
     private lateinit var pipeComponent: View
     private lateinit var andesMessageAttrs: AndesMessageAttrs
+    private lateinit var primaryAction: AndesButton
+    private lateinit var secondaryAction: AndesButton
+
 
     @Suppress("unused")
     private constructor(context: Context) : super(context) {
@@ -137,6 +155,7 @@ class AndesMessage : FrameLayout {
         setupBackground(config)
         setupPipe(config)
         setupIcon(config)
+        setupButton(config)
     }
 
     /**
@@ -153,6 +172,8 @@ class AndesMessage : FrameLayout {
         iconComponent = container.findViewById(R.id.andesui_icon)
         dismissableComponent = container.findViewById(R.id.andesui_dismissable)
         pipeComponent = container.findViewById(R.id.andesui_pipe)
+        primaryAction = container.findViewById(R.id.andesui_primary_action)
+        secondaryAction = container.findViewById(R.id.andesui_secondary_action)
     }
 
     /**
@@ -217,6 +238,40 @@ class AndesMessage : FrameLayout {
         }
     }
 
+    private fun setupButton(config: AndesMessageConfiguration) {
+        primaryAction.changeBackgroundColor(config.primaryActionBackgroundColor)
+        primaryAction.changeTextColor(config.primaryActionTextColor)
+        secondaryAction.changeBackgroundColor(config.secondaryActionBackgroundColor)
+        secondaryAction.changeTextColor(config.secondaryActionTextColor)
+    }
+
+    fun setupPrimaryAction(text: String, onClickListener: OnClickListener) {
+        primaryAction.visibility = View.VISIBLE
+        primaryActionText = text
+        primaryAction.setOnClickListener(onClickListener)
+    }
+
+    fun setupSecondaryAction(text: String, onClickListener: OnClickListener) {
+        if (primaryAction.visibility == View.VISIBLE) {
+            secondaryAction.visibility = View.VISIBLE
+            secondaryActionText = text
+            secondaryAction.setOnClickListener(onClickListener)
+        } else {
+            when {
+                BuildConfig.DEBUG -> throw IllegalStateException("Cannot initialize a secondary action without a primary one")
+                else -> Log.d("AndesMessage","Cannot initialize a secondary action without a primary one")
+            }
+        }
+    }
+
+    fun hidePrimaryAction(){
+        primaryAction.visibility = View.GONE
+        secondaryAction.visibility = View.GONE
+    }
+
+    fun hideSecondaryAction(){
+        secondaryAction.visibility = View.GONE
+    }
 
     private fun createConfig() = AndesMessageConfigurationFactory.create(context, andesMessageAttrs)
 

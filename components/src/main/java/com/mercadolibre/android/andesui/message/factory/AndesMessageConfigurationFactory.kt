@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import com.mercadolibre.android.andesui.R
+import com.mercadolibre.android.andesui.button.hierarchy.BackgroundColorConfigMessage
 import com.mercadolibre.android.andesui.message.hierarchy.AndesMessageHierarchyInterface
 import com.mercadolibre.android.andesui.message.type.AndesMessageTypeInterface
 
@@ -24,7 +25,11 @@ internal data class AndesMessageConfiguration(
         val dismissableIcon: Drawable?,
         val dismissableIconColor: Int?,
         val primaryActionText: String?,
-        val secondaryActionText: String?
+        val secondaryActionText: String?,
+        val primaryActionBackgroundColor: BackgroundColorConfigMessage,
+        val primaryActionTextColor: Int,
+        val secondaryActionBackgroundColor: BackgroundColorConfigMessage,
+        val secondaryActionTextColor: Int
 )
 
 internal object AndesMessageConfigurationFactory {
@@ -32,9 +37,9 @@ internal object AndesMessageConfigurationFactory {
     fun create(context: Context, andesMessageAttrs: AndesMessageAttrs): AndesMessageConfiguration {
         return with(andesMessageAttrs) {
             AndesMessageConfiguration(
-                    iconBackgroundColor = resolveIconBackgroundColor(andesMessageType.state, context),
-                    backgroundColor = resolveBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.state, context),
-                    pipeColor = resolvePipeColor(andesMessageType.state, context),
+                    iconBackgroundColor = resolveIconBackgroundColor(andesMessageType.type, context),
+                    backgroundColor = resolveBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.type, context),
+                    pipeColor = resolvePipeColor(andesMessageType.type, context),
                     textColor = resolveTextColor(andesMessageHierarchy.hierarchy, context),
                     titleText = title,
                     bodyText = body,
@@ -43,13 +48,16 @@ internal object AndesMessageConfigurationFactory {
                     bodySize = resolveBodySize(context),
                     titleTypeface = resolveTitleTypeface(andesMessageHierarchy.hierarchy, context),
                     bodyTypeface = resolveBodyTypeface(andesMessageHierarchy.hierarchy, context),
-                    icon = resolveIcon(andesMessageType.state, andesMessageHierarchy.hierarchy, context),
+                    icon = resolveIcon(andesMessageType.type, andesMessageHierarchy.hierarchy, context),
                     isDismissable = isDismissable,
                     dismissableIcon = resolveDismissableIcon(andesMessageHierarchy.hierarchy, context),
                     dismissableIconColor = resolveDismissableIconColor(andesMessageHierarchy.hierarchy, context),
                     primaryActionText = null,
-                    secondaryActionText = null
-
+                    secondaryActionText = null,
+                    primaryActionBackgroundColor = resolvePrimaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.type, context),
+                    primaryActionTextColor = resolvePrimaryActionTextColor(andesMessageHierarchy.hierarchy, context),
+                    secondaryActionBackgroundColor = resolveSecondaryActionBackgroundColor(andesMessageHierarchy.hierarchy, andesMessageType.type, context),
+                    secondaryActionTextColor = resolveSecondaryActionTextColor(andesMessageHierarchy.hierarchy, andesMessageType.type, context)
             )
         }
     }
@@ -66,4 +74,8 @@ internal object AndesMessageConfigurationFactory {
     private fun resolveIcon(type: AndesMessageTypeInterface, hierarchy: AndesMessageHierarchyInterface, context: Context) = type.icon(context, hierarchy)
     private fun resolveDismissableIcon(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.dismissableIcon(hierarchy, context)
     private fun resolveDismissableIconColor(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.dismissableIconColor(context)
+    private fun resolvePrimaryActionBackgroundColor(hierarchy: AndesMessageHierarchyInterface, type: AndesMessageTypeInterface, context: Context) = hierarchy.primaryActionBackgroundColor(context, type)
+    private fun resolvePrimaryActionTextColor(hierarchy: AndesMessageHierarchyInterface, context: Context) = hierarchy.primaryActionTextColor(context)
+    private fun resolveSecondaryActionBackgroundColor(hierarchy: AndesMessageHierarchyInterface, type: AndesMessageTypeInterface, context: Context) = hierarchy.secondaryActionBackgroundColor(context, type)
+    private fun resolveSecondaryActionTextColor(hierarchy: AndesMessageHierarchyInterface, type: AndesMessageTypeInterface, context: Context) = hierarchy.secondaryActionTextColor(context, type)
 }
