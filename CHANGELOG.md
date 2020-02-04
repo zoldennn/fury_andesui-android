@@ -1,5 +1,6 @@
 # v1.2.3
 # Added
+- Stale Bot GitHub config.
 - Buttons can have primary and secondary actions.
 
 # v1.2.2
